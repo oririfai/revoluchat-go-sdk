@@ -34,7 +34,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/revolu/revoluchat-go-sdk"
+	"github.com/oririfai/revoluchat-go-sdk"
 )
 
 func main() {
