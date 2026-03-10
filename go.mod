@@ -1,4 +1,4 @@
-module github.com/revolu/revoluchat-go-sdk
+module github.com/oririfai/revoluchat-go-sdk
 
 go 1.25.3
 

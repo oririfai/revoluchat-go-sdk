@@ -7,11 +7,12 @@
 package user_v1
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -175,7 +176,7 @@ const file_user_proto_rawDesc = "" +
 	"\n" +
 	"avatar_url\x18\a \x01(\tR\tavatarUrl2K\n" +
 	"\vUserService\x12<\n" +
-	"\aGetUser\x12\x17.user.v1.GetUserRequest\x1a\x18.user.v1.GetUserResponseB3Z1github.com/revolu/revoluchat-go-sdk/proto/user_v1b\x06proto3"
+	"\aGetUser\x12\x17.user.v1.GetUserRequest\x1a\x18.user.v1.GetUserResponseB4Z2github.com/oririfai/revoluchat-go-sdk/proto/user_v1b\x06proto3"
 
 var (
 	file_user_proto_rawDescOnce sync.Once

@@ -17,7 +17,7 @@ Official Go SDK for **Revoluchat**, an enterprise-grade, multi-tenant real-time 
 To add the SDK to your project:
 
 ```bash
-go get github.com/revolu/revoluchat-go-sdk
+go get github.com/oririfai/revoluchat-go-sdk
 ```
 
 ## 🚀 Quick Start (Integration Guide)

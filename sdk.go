@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net"
 
-	pb "github.com/revolu/revoluchat-go-sdk/proto/user_v1"
+	pb "github.com/oririfai/revoluchat-go-sdk/proto/user_v1"
 	"google.golang.org/grpc"
 )
 
