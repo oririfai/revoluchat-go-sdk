@@ -79,7 +79,9 @@ func (m *JWTManager) JWKSHandler(w http.ResponseWriter, r *http.Request) {
 	if clientKey == "" {
 		clientKey = r.URL.Query().Get("server_key")
 	}
+	fmt.Printf("JWKSHandler: Received request with server_key=%s\n", clientKey)
 	if m.serverKey != "" && clientKey != m.serverKey {
+		fmt.Printf("JWKSHandler: Invalid server key. Expected=%s, Received=%s\n", m.serverKey, clientKey)
 		http.Error(w, "Unauthorized: Invalid server key", http.StatusUnauthorized)
 		return
 	}
