@@ -1,6 +1,6 @@
 # Revoluchat Go SDK 🚀
 
-**Version**: `v1.2.0-alpha` (Group Support, Call, Attachment, & Advance Tier)
+**Version**: `v1.1.0-alpha` (Group Support, Call, Attachment, & Advance Tier)
 
 Official Go SDK for **Revoluchat**, an enterprise-grade, multi-tenant real-time chat platform. This SDK provides a seamless way to integrate your existing user database with Revoluchat using a highly secure "pointing" pattern and OpenID Connect (OIDC) compliant token generation.
 
