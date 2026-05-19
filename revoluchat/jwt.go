@@ -57,6 +57,10 @@ func NewJWTManager(privKeyPath, pubKeyPath, serverKey string) (*JWTManager, erro
 	}, nil
 }
 
+func (m *JWTManager) GetPublicKey() *rsa.PublicKey {
+	return m.verifyKey
+}
+
 // GenerateToken creates a signed JWT with KID in header.
 func (m *JWTManager) GenerateToken(userID string, appID string) (string, error) {
 	claims := jwt.MapClaims{
