@@ -19,9 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ConversationService_CreateConversation_FullMethodName = "/revoluchat.v1.ConversationService/CreateConversation"
-	ConversationService_ListConversations_FullMethodName  = "/revoluchat.v1.ConversationService/ListConversations"
-	ConversationService_GetConversation_FullMethodName    = "/revoluchat.v1.ConversationService/GetConversation"
+	ConversationService_CreateConversation_FullMethodName        = "/revoluchat.v1.ConversationService/CreateConversation"
+	ConversationService_ListConversations_FullMethodName         = "/revoluchat.v1.ConversationService/ListConversations"
+	ConversationService_GetConversation_FullMethodName           = "/revoluchat.v1.ConversationService/GetConversation"
+	ConversationService_DeleteConversation_FullMethodName        = "/revoluchat.v1.ConversationService/DeleteConversation"
+	ConversationService_ArchiveConversation_FullMethodName       = "/revoluchat.v1.ConversationService/ArchiveConversation"
+	ConversationService_UnarchiveConversation_FullMethodName     = "/revoluchat.v1.ConversationService/UnarchiveConversation"
+	ConversationService_ListArchivedConversations_FullMethodName = "/revoluchat.v1.ConversationService/ListArchivedConversations"
 )
 
 // ConversationServiceClient is the client API for ConversationService service.
@@ -34,6 +38,14 @@ type ConversationServiceClient interface {
 	ListConversations(ctx context.Context, in *ListConversationsRequest, opts ...grpc.CallOption) (*ListConversationsResponse, error)
 	// Gets a single conversation by ID.
 	GetConversation(ctx context.Context, in *GetConversationRequest, opts ...grpc.CallOption) (*GetConversationResponse, error)
+	// Deletes a conversation for the requesting user (soft delete).
+	DeleteConversation(ctx context.Context, in *DeleteConversationRequest, opts ...grpc.CallOption) (*ActionResponse, error)
+	// Archives a conversation for the requesting user.
+	ArchiveConversation(ctx context.Context, in *ArchiveConversationRequest, opts ...grpc.CallOption) (*ActionResponse, error)
+	// Unarchives a conversation for the requesting user.
+	UnarchiveConversation(ctx context.Context, in *UnarchiveConversationRequest, opts ...grpc.CallOption) (*ActionResponse, error)
+	// Lists archived conversations for a specific user.
+	ListArchivedConversations(ctx context.Context, in *ListConversationsRequest, opts ...grpc.CallOption) (*ListConversationsResponse, error)
 }
 
 type conversationServiceClient struct {
@@ -74,6 +86,46 @@ func (c *conversationServiceClient) GetConversation(ctx context.Context, in *Get
 	return out, nil
 }
 
+func (c *conversationServiceClient) DeleteConversation(ctx context.Context, in *DeleteConversationRequest, opts ...grpc.CallOption) (*ActionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionResponse)
+	err := c.cc.Invoke(ctx, ConversationService_DeleteConversation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *conversationServiceClient) ArchiveConversation(ctx context.Context, in *ArchiveConversationRequest, opts ...grpc.CallOption) (*ActionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionResponse)
+	err := c.cc.Invoke(ctx, ConversationService_ArchiveConversation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *conversationServiceClient) UnarchiveConversation(ctx context.Context, in *UnarchiveConversationRequest, opts ...grpc.CallOption) (*ActionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionResponse)
+	err := c.cc.Invoke(ctx, ConversationService_UnarchiveConversation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *conversationServiceClient) ListArchivedConversations(ctx context.Context, in *ListConversationsRequest, opts ...grpc.CallOption) (*ListConversationsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListConversationsResponse)
+	err := c.cc.Invoke(ctx, ConversationService_ListArchivedConversations_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ConversationServiceServer is the server API for ConversationService service.
 // All implementations must embed UnimplementedConversationServiceServer
 // for forward compatibility.
@@ -84,6 +136,14 @@ type ConversationServiceServer interface {
 	ListConversations(context.Context, *ListConversationsRequest) (*ListConversationsResponse, error)
 	// Gets a single conversation by ID.
 	GetConversation(context.Context, *GetConversationRequest) (*GetConversationResponse, error)
+	// Deletes a conversation for the requesting user (soft delete).
+	DeleteConversation(context.Context, *DeleteConversationRequest) (*ActionResponse, error)
+	// Archives a conversation for the requesting user.
+	ArchiveConversation(context.Context, *ArchiveConversationRequest) (*ActionResponse, error)
+	// Unarchives a conversation for the requesting user.
+	UnarchiveConversation(context.Context, *UnarchiveConversationRequest) (*ActionResponse, error)
+	// Lists archived conversations for a specific user.
+	ListArchivedConversations(context.Context, *ListConversationsRequest) (*ListConversationsResponse, error)
 	mustEmbedUnimplementedConversationServiceServer()
 }
 
@@ -102,6 +162,18 @@ func (UnimplementedConversationServiceServer) ListConversations(context.Context,
 }
 func (UnimplementedConversationServiceServer) GetConversation(context.Context, *GetConversationRequest) (*GetConversationResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetConversation not implemented")
+}
+func (UnimplementedConversationServiceServer) DeleteConversation(context.Context, *DeleteConversationRequest) (*ActionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteConversation not implemented")
+}
+func (UnimplementedConversationServiceServer) ArchiveConversation(context.Context, *ArchiveConversationRequest) (*ActionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ArchiveConversation not implemented")
+}
+func (UnimplementedConversationServiceServer) UnarchiveConversation(context.Context, *UnarchiveConversationRequest) (*ActionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UnarchiveConversation not implemented")
+}
+func (UnimplementedConversationServiceServer) ListArchivedConversations(context.Context, *ListConversationsRequest) (*ListConversationsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListArchivedConversations not implemented")
 }
 func (UnimplementedConversationServiceServer) mustEmbedUnimplementedConversationServiceServer() {}
 func (UnimplementedConversationServiceServer) testEmbeddedByValue()                             {}
@@ -178,6 +250,78 @@ func _ConversationService_GetConversation_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ConversationService_DeleteConversation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteConversationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConversationServiceServer).DeleteConversation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ConversationService_DeleteConversation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConversationServiceServer).DeleteConversation(ctx, req.(*DeleteConversationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConversationService_ArchiveConversation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ArchiveConversationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConversationServiceServer).ArchiveConversation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ConversationService_ArchiveConversation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConversationServiceServer).ArchiveConversation(ctx, req.(*ArchiveConversationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConversationService_UnarchiveConversation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnarchiveConversationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConversationServiceServer).UnarchiveConversation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ConversationService_UnarchiveConversation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConversationServiceServer).UnarchiveConversation(ctx, req.(*UnarchiveConversationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConversationService_ListArchivedConversations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListConversationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConversationServiceServer).ListArchivedConversations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ConversationService_ListArchivedConversations_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConversationServiceServer).ListArchivedConversations(ctx, req.(*ListConversationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ConversationService_ServiceDesc is the grpc.ServiceDesc for ConversationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -196,6 +340,22 @@ var ConversationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetConversation",
 			Handler:    _ConversationService_GetConversation_Handler,
+		},
+		{
+			MethodName: "DeleteConversation",
+			Handler:    _ConversationService_DeleteConversation_Handler,
+		},
+		{
+			MethodName: "ArchiveConversation",
+			Handler:    _ConversationService_ArchiveConversation_Handler,
+		},
+		{
+			MethodName: "UnarchiveConversation",
+			Handler:    _ConversationService_UnarchiveConversation_Handler,
+		},
+		{
+			MethodName: "ListArchivedConversations",
+			Handler:    _ConversationService_ListArchivedConversations_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -7,6 +7,7 @@ import (
 
 	pb_user "github.com/oririfai/revoluchat-go-sdk/proto/user_v1"
 	pb_chat "github.com/oririfai/revoluchat-go-sdk/proto/chat_v1"
+	pb_admin "github.com/oririfai/revoluchat-go-sdk/proto/admin_v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/codes"
@@ -23,8 +24,8 @@ const (
 
 // User represents the user data structure required by Revoluchat.
 type User struct {
-	ID        string
-	UUID      string
+	ID        string // Numeric ID (stringified)
+	UUID      string // UUID
 	Name      string
 	Phone     string
 	Status    string
@@ -32,7 +33,7 @@ type User struct {
 	AvatarURL string
 }
 
-// UserProvider is a function that returns a User given an ID.
+// UserProvider is a function that returns a User given a UUID.
 type UserProvider func(ctx context.Context, id string) (*User, error)
 
 // --- ADVANCE TIER PROVIDERS ---
@@ -50,6 +51,10 @@ type ConversationProvider interface {
 	CreateConversation(ctx context.Context, req *pb_chat.CreateConversationRequest) (*pb_chat.CreateConversationResponse, error)
 	ListConversations(ctx context.Context, req *pb_chat.ListConversationsRequest) (*pb_chat.ListConversationsResponse, error)
 	GetConversation(ctx context.Context, req *pb_chat.GetConversationRequest) (*pb_chat.GetConversationResponse, error)
+	DeleteConversation(ctx context.Context, req *pb_chat.DeleteConversationRequest) (*pb_chat.ActionResponse, error)
+	ArchiveConversation(ctx context.Context, req *pb_chat.ArchiveConversationRequest) (*pb_chat.ActionResponse, error)
+	UnarchiveConversation(ctx context.Context, req *pb_chat.UnarchiveConversationRequest) (*pb_chat.ActionResponse, error)
+	ListArchivedConversations(ctx context.Context, req *pb_chat.ListConversationsRequest) (*pb_chat.ListConversationsResponse, error)
 }
 
 type CallProvider interface {
@@ -90,6 +95,44 @@ type Config struct {
 	CallProvider         CallProvider
 	GroupProvider        GroupProvider
 	AttachmentProvider   AttachmentProvider
+	ContactProvider      ContactProvider
+	AdminProvider        AdminProvider
+}
+
+type ContactProvider interface {
+	SearchUserByPhone(ctx context.Context, req *pb_user.SearchUserByPhoneRequest) (*pb_user.UserResponse, error)
+	AddContact(ctx context.Context, req *pb_user.AddContactRequest) (*pb_user.ActionResponse, error)
+	ListContacts(ctx context.Context, req *pb_user.ListContactsRequest) (*pb_user.ListContactsResponse, error)
+	RemoveContact(ctx context.Context, req *pb_user.RemoveContactRequest) (*pb_user.ActionResponse, error)
+}
+
+type AdminProvider interface {
+	ListUsers(ctx context.Context, req *pb_admin.ListUsersRequest) (*pb_admin.ListUsersResponse, error)
+	SuspendUser(ctx context.Context, req *pb_admin.SuspendUserRequest) (*pb_admin.ActionResponse, error)
+	UnsuspendUser(ctx context.Context, req *pb_admin.UnsuspendUserRequest) (*pb_admin.ActionResponse, error)
+}
+
+// --- ADMIN SERVICE ---
+
+func (s *server) ListUsers(ctx context.Context, req *pb_admin.ListUsersRequest) (*pb_admin.ListUsersResponse, error) {
+	if s.config.AdminProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "admin provider not configured")
+	}
+	return s.config.AdminProvider.ListUsers(ctx, req)
+}
+
+func (s *server) SuspendUser(ctx context.Context, req *pb_admin.SuspendUserRequest) (*pb_admin.ActionResponse, error) {
+	if s.config.AdminProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "admin provider not configured")
+	}
+	return s.config.AdminProvider.SuspendUser(ctx, req)
+}
+
+func (s *server) UnsuspendUser(ctx context.Context, req *pb_admin.UnsuspendUserRequest) (*pb_admin.ActionResponse, error) {
+	if s.config.AdminProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "admin provider not configured")
+	}
+	return s.config.AdminProvider.UnsuspendUser(ctx, req)
 }
 
 type server struct {
@@ -99,6 +142,7 @@ type server struct {
 	pb_chat.UnimplementedCallServiceServer
 	pb_chat.UnimplementedGroupServiceServer
 	pb_chat.UnimplementedAttachmentServiceServer
+	pb_admin.UnimplementedAdminServiceServer
 	config Config
 }
 
@@ -119,6 +163,34 @@ func (s *server) GetUser(ctx context.Context, req *pb_user.GetUserRequest) (*pb_
 		IsKyc:     user.IsKYC,
 		AvatarUrl: user.AvatarURL,
 	}, nil
+}
+
+func (s *server) SearchUserByPhone(ctx context.Context, req *pb_user.SearchUserByPhoneRequest) (*pb_user.UserResponse, error) {
+	if s.config.ContactProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "contact provider not configured")
+	}
+	return s.config.ContactProvider.SearchUserByPhone(ctx, req)
+}
+
+func (s *server) AddContact(ctx context.Context, req *pb_user.AddContactRequest) (*pb_user.ActionResponse, error) {
+	if s.config.ContactProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "contact provider not configured")
+	}
+	return s.config.ContactProvider.AddContact(ctx, req)
+}
+
+func (s *server) ListContacts(ctx context.Context, req *pb_user.ListContactsRequest) (*pb_user.ListContactsResponse, error) {
+	if s.config.ContactProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "contact provider not configured")
+	}
+	return s.config.ContactProvider.ListContacts(ctx, req)
+}
+
+func (s *server) RemoveContact(ctx context.Context, req *pb_user.RemoveContactRequest) (*pb_user.ActionResponse, error) {
+	if s.config.ContactProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "contact provider not configured")
+	}
+	return s.config.ContactProvider.RemoveContact(ctx, req)
 }
 
 // --- CHAT SERVICE (ADVANCE TIER) ---
@@ -186,6 +258,34 @@ func (s *server) GetConversation(ctx context.Context, req *pb_chat.GetConversati
 		return nil, status.Error(codes.Unimplemented, "conversation provider not configured")
 	}
 	return s.config.ConversationProvider.GetConversation(ctx, req)
+}
+
+func (s *server) DeleteConversation(ctx context.Context, req *pb_chat.DeleteConversationRequest) (*pb_chat.ActionResponse, error) {
+	if s.config.ConversationProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "conversation provider not configured")
+	}
+	return s.config.ConversationProvider.DeleteConversation(ctx, req)
+}
+
+func (s *server) ArchiveConversation(ctx context.Context, req *pb_chat.ArchiveConversationRequest) (*pb_chat.ActionResponse, error) {
+	if s.config.ConversationProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "conversation provider not configured")
+	}
+	return s.config.ConversationProvider.ArchiveConversation(ctx, req)
+}
+
+func (s *server) UnarchiveConversation(ctx context.Context, req *pb_chat.UnarchiveConversationRequest) (*pb_chat.ActionResponse, error) {
+	if s.config.ConversationProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "conversation provider not configured")
+	}
+	return s.config.ConversationProvider.UnarchiveConversation(ctx, req)
+}
+
+func (s *server) ListArchivedConversations(ctx context.Context, req *pb_chat.ListConversationsRequest) (*pb_chat.ListConversationsResponse, error) {
+	if s.config.ConversationProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "conversation provider not configured")
+	}
+	return s.config.ConversationProvider.ListArchivedConversations(ctx, req)
 }
 
 // --- CALL SERVICE (ADVANCE TIER) ---
@@ -316,13 +416,20 @@ func Start(config Config) error {
 
 	// Security Interceptor
 	interceptor := func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+		fmt.Printf("[gRPC SDK] Incoming Request: %s\n", info.FullMethod)
 		if config.ServerKey != "" {
 			md, ok := metadata.FromIncomingContext(ctx)
 			if !ok {
+				fmt.Printf("[gRPC SDK] Auth Failed: Metadata missing for %s\n", info.FullMethod)
 				return nil, status.Error(codes.Unauthenticated, "metadata missing")
 			}
 			keys := md.Get("x-server-key")
-			if len(keys) == 0 || keys[0] != config.ServerKey {
+			if len(keys) == 0 {
+				fmt.Printf("[gRPC SDK] Auth Failed: x-server-key missing for %s\n", info.FullMethod)
+				return nil, status.Error(codes.Unauthenticated, "invalid server key")
+			}
+			if keys[0] != config.ServerKey {
+				fmt.Printf("[gRPC SDK] Auth Failed: Invalid x-server-key for %s. Received: %s\n", info.FullMethod, keys[0])
 				return nil, status.Error(codes.Unauthenticated, "invalid server key")
 			}
 		}
@@ -343,6 +450,7 @@ func Start(config Config) error {
 		pb_chat.RegisterCallServiceServer(s, srv)
 		pb_chat.RegisterGroupServiceServer(s, srv)
 		pb_chat.RegisterAttachmentServiceServer(s, srv)
+		pb_admin.RegisterAdminServiceServer(s, srv)
 	}
 
 	fmt.Printf("Revoluchat Go SDK [%s tier]: gRPC server listening on %s\n", config.Tier, addr)
