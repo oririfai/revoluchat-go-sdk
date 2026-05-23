@@ -26,6 +26,7 @@ import (
 )
 
 // InitRevoluchat sets up the Revoluchat SDK based on your configuration.
+// You can move this entire file and code to another folder or file for initialize this package
 func InitRevoluchat() {
 	config := revoluchat.Config{
 		Tier:      revoluchat.Tier{{ .TierTitle }},
@@ -35,7 +36,12 @@ func InitRevoluchat() {
 			// TODO: Fetch user from your database
 			return &revoluchat.User{
 				ID:   id,
+				UUID:      "", // UUID if available
 				Name: "Example User",
+				Phone:     "",
+				Status:    "", // active or suspended (other status will be suspended)
+				IsKYC:     false,
+				AvatarURL: "",
 			}, nil
 		},
 		{{ if eq .Tier "advance" }}
