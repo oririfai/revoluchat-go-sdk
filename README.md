@@ -1,41 +1,23 @@
 # Revoluchat Go SDK 🚀
 
-**Version**: `v1.1.0-alpha` (Group Support, Call, Attachment, & Advance Tier)
+**Version**: `v1.2.0-alpha` (Group Support & Advance Tier)
 
 Official Go SDK for **Revoluchat**, an enterprise-grade, multi-tenant real-time chat platform. This SDK provides a seamless way to integrate your existing user database with Revoluchat using a highly secure "pointing" pattern and OpenID Connect (OIDC) compliant token generation.
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/oririfai/revoluchat-go-sdk.svg)](https://pkg.go.dev/github.com/oririfai/revoluchat-go-sdk)
 
-## 📋 Detailed Specifications
+## ✨ Features
 
-This SDK operates via high-speed gRPC communication and provides various capabilities to support your application's needs:
-
-### 1. Multi-Tier Architecture
-
-- **Normal Tier**: Conversation data is stored locally in Revoluchat's internal storage (Elixir). You only need to implement the _User Provider_ and _JWT Manager_.
-- **Advance Tier**: Conversation, call, group, and attachment data are stored and managed on your application side. Revoluchat acts as a forwarding agent that invokes the gRPC Providers you implement.
-
-### 2. Security & Authentication
-
-- **OIDC (OpenID Connect)**: Generates RS256 JWTs with dynamically computed Key IDs (KID).
-- **Server-to-Server Auth**: Every inter-service request must include an `X-Server-Key` header to prevent unauthorized access to the gRPC services and the JWKS endpoint.
-
-### 3. Services & Providers (Advance Tier)
-
-This SDK includes comprehensive gRPC services:
-
-- **User Service**: Retrieval of profiles, statuses, avatars, names, etc.
-- **Message Service**: Storing messages, retrieving message history, marking as read/delivered, and message deletion.
-- **Conversation Service**: Creation, retrieval, and listing of conversations (both 1-on-1 and groups).
-- **Call Service**: Initiating calls, updating call statuses, and managing call history.
-- **Group Service**: Full management for groups, adding/removing members, muting, accepting invitations, and other group administrative actions.
-- **Attachment Service**: Registration and listing of image, video, and document attachment files.
-
----
+- **Tiered Architecture Support**: Choose between `Normal` (local Elixir storage) and `Advance` (centralized Go storage) tiers.
+- **OIDC Complaint Authentication**: Generates RS256 JWTs with dynamically computed Key IDs (KID).
+- **Secure JWKS & gRPC**: Built-in `X-Server-Key` validation for all inter-service communication.
+- **Group Chat Support**: Full management of groups, members, and group security in Advance Tier.
+- **Easy "Pointing" Pattern**: Map your internal data to Revoluchat using simple Go interfaces or functions.
+- **High Performance**: Built on top of `google.golang.org/grpc` for efficient, reliable inter-service communication.
 
 ## 📦 Installation & Setup
 
-Run the following command at the root of your Go backend project:
+To add the SDK to your project:
 
 ```bash
 go get github.com/oririfai/revoluchat-go-sdk@latest
@@ -43,19 +25,20 @@ go get github.com/oririfai/revoluchat-go-sdk@latest
 
 ### ⚡ Quick Start (Recommended)
 
-Use our interactive CLI to bootstrap your configuration in seconds:
+Use our interactive CLI to bootstrap your Revoluchat configuration in seconds:
 
 ```bash
 go run github.com/oririfai/revoluchat-go-sdk/cmd/revoluchat-init@latest
 ```
 
-This process will ask for your **Tier** and **Server Key**, and then automatically generate the `revoluchat_setup.go` boilerplate file.
+This will ask for your **Tier** and **Server Key**, then generate a `revoluchat_setup.go` file with all the necessary boilerplate.
 
----
+## 🚀 Manual Integration Guide
 
-## 💻 How to Use
+Integrating with Revoluchat requires two main components:
 
-Integrating this SDK involves initializing the **JWT Manager** for OIDC and running the SDK's **gRPC Server** with your custom Providers.
+1. **JWT Manager**: For signing authentication tokens and serving the JWKS to Revoluchat servers.
+2. **gRPC Server**: For Revoluchat to fetch high-speed profile data (name, avatar, KYC status) and manage chat data in Advance Tier.
 
 ### 1. Implementation in Your Go Backend
 
@@ -75,28 +58,22 @@ import (
 )
 
 func main() {
+	// 1. Initialize JWT Manager
 	serverKey := os.Getenv("REVOLUCHAT_SERVER_KEY")
-
-	// 1. Initialize JWT Manager (RS256)
-	// Make sure the app.rsa (private) and app.rsa.pub (public) files are available
 	jwtManager, err := revoluchat.NewJWTManager("keys/app.rsa", "keys/app.rsa.pub", serverKey)
 	if err != nil {
 		log.Fatalf("Failed to initialize JWT: %v", err)
 	}
 
-	// 2. Start the gRPC SDK Server
+	// 2. Start the SDK gRPC server
 	go func() {
 		err := revoluchat.Start(revoluchat.Config{
-			Tier:      revoluchat.TierAdvance, // Choose TierNormal or TierAdvance
-			GRPCPort:  50051,
+			Tier:     revoluchat.TierAdvance, // Choose Normal or Advance
+			GRPCPort: 50051,
 			ServerKey: serverKey,
-
-			// Required to be implemented in All Tiers
-			UserProvider: func(ctx context.Context, id string) (*revoluchat.User, error) {
-				// Query your database/service here to get the User profile
+			UserProvider: func(ctx context.Context, id uint64) (*revoluchat.User, error) {
 				return &revoluchat.User{
 					ID:        id,
-					UUID:      "your-custom-uuid",
 					Name:      "User Full Name",
 					Phone:     "08123456789",
 					AvatarURL: "https://your-cdn.com/path/to/photo.jpg",
@@ -104,13 +81,10 @@ func main() {
 					IsKYC:     true,
 				}, nil
 			},
-
-			// Required to be implemented if using TierAdvance
-			MessageProvider:      &MyMessageService{},      // Must implement revoluchat.MessageProvider
-			ConversationProvider: &MyConversationService{}, // Must implement revoluchat.ConversationProvider
-			CallProvider:         &MyCallService{},         // Must implement revoluchat.CallProvider
-			GroupProvider:        &MyGroupService{},        // Must implement revoluchat.GroupProvider
-			AttachmentProvider:   &MyAttachmentService{},   // Must implement revoluchat.AttachmentProvider
+			// Required for TierAdvance
+			MessageProvider:      &MyMessageService{},
+			ConversationProvider: &MyConversationService{},
+			GroupProvider:        &MyGroupService{}, // Your implementation
 		})
 
 		if err != nil {
@@ -121,32 +95,26 @@ func main() {
 	// 3. HTTP Server Setup for the JWKS endpoint
 	r := gin.Default()
 	r.GET("/jwks", gin.WrapF(jwtManager.JWKSHandler))
-
-	log.Println("Starting HTTP server on :8089")
 	r.Run(":8089")
 }
 ```
 
 ### 2. Configuration Integration to the Revoluchat Server
 
-Set the environment variables in your Revoluchat backend to point to your gRPC IP and Port:
+Set the `TIER_TYPE` and point to your Go backend:
 
 ```bash
-# Set the tier type to be uniform with your application (normal/advance)
+# Set the tier (must match SDK config)
 TIER_TYPE=advance
 
-# Point to your Backend gRPC host
+# Point to your gRPC Port
 CHAT_SERVICE_GRPC_ENDPOINT=your-go-backend-host:50051
 USER_SERVICE_GRPC_ENDPOINT=your-go-backend-host:50051
 ```
 
----
+## 🛠️ Data Structure
 
-## ℹ️ Other Information
-
-### Data Structure `revoluchat.User`
-
-The SDK maps the profile type with a simplified `revoluchat.User` structure so it can be transferred quickly over gRPC:
+The SDK uses a simplified `revoluchat.User` struct for data mapping over gRPC:
 
 | Field       | Type     | Description                                          |
 | :---------- | :------- | :--------------------------------------------------- |

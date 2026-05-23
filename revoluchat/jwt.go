@@ -16,24 +16,13 @@ import (
 
 // JWTManager handles token generation and JWKS serving.
 type JWTManager struct {
-	signKey   *rsa.PrivateKey
 	verifyKey *rsa.PublicKey
 	kid       string
 	serverKey string // Secure key for JWKS endpoint validation
 }
 
 // NewJWTManager creates a new JWTManager and computes the KID thumbprint.
-func NewJWTManager(privKeyPath, pubKeyPath, serverKey string) (*JWTManager, error) {
-	signBytes, err := os.ReadFile(privKeyPath)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read private key: %w", err)
-	}
-
-	signKey, err := jwt.ParseRSAPrivateKeyFromPEM(signBytes)
-	if err != nil {
-		return nil, fmt.Errorf("failed to parse private key: %w", err)
-	}
-
+func NewJWTManager(pubKeyPath, serverKey string) (*JWTManager, error) {
 	verifyBytes, err := os.ReadFile(pubKeyPath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to read public key: %w", err)
@@ -50,7 +39,6 @@ func NewJWTManager(privKeyPath, pubKeyPath, serverKey string) (*JWTManager, erro
 	kid := base64.RawURLEncoding.EncodeToString(tp)
 
 	return &JWTManager{
-		signKey:   signKey,
 		verifyKey: verifyKey,
 		kid:       kid,
 		serverKey: serverKey,
@@ -61,8 +49,18 @@ func (m *JWTManager) GetPublicKey() *rsa.PublicKey {
 	return m.verifyKey
 }
 
-// GenerateToken creates a signed JWT with KID in header.
-func (m *JWTManager) GenerateToken(userID string, appID string) (string, error) {
+// GenerateToken creates a signed JWT with KID in header using the provided private key path.
+func (m *JWTManager) GenerateToken(userID string, appID string, privKeyPath string) (string, error) {
+	signBytes, err := os.ReadFile(privKeyPath)
+	if err != nil {
+		return "", fmt.Errorf("failed to read private key: %w", err)
+	}
+
+	signKey, err := jwt.ParseRSAPrivateKeyFromPEM(signBytes)
+	if err != nil {
+		return "", fmt.Errorf("failed to parse private key: %w", err)
+	}
+
 	claims := jwt.MapClaims{
 		"sub":    userID,
 		"app_id": appID,
@@ -73,7 +71,7 @@ func (m *JWTManager) GenerateToken(userID string, appID string) (string, error) 
 
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
 	token.Header["kid"] = m.kid
-	return token.SignedString(m.signKey)
+	return token.SignedString(signKey)
 }
 
 // JWKSHandler returns a handler function for JWKS endpoint with security check.

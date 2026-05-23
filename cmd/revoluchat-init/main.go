@@ -18,14 +18,11 @@ const setupTemplate = `package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"github.com/oririfai/revoluchat-go-sdk/revoluchat"
-	{{ if eq .Tier "advance" }}
-	"fmt"
-
-	pb_chat "github.com/oririfai/revoluchat-go-sdk/proto/chat_v1"
-	{{ end }}
+	{{ if eq .Tier "advance" }}pb_chat "github.com/oririfai/revoluchat-go-sdk/proto/chat_v1"{{ end }}
 )
 
 // InitRevoluchat sets up the Revoluchat SDK based on your configuration.
