@@ -78,8 +78,8 @@ func main() {
 	serverKey := os.Getenv("REVOLUCHAT_SERVER_KEY")
 
 	// 1. Initialize JWT Manager (RS256)
-	// Make sure the app.rsa (private) and app.rsa.pub (public) files are available
-	jwtManager, err := revoluchat.NewJWTManager("keys/app.rsa", "keys/app.rsa.pub", serverKey)
+	// Only public key is needed to expose the JWKS endpoint for Elixir
+	jwtManager, err := revoluchat.NewJWTManager("keys/app.rsa.pub", serverKey)
 	if err != nil {
 		log.Fatalf("Failed to initialize JWT: %v", err)
 	}
@@ -164,7 +164,7 @@ When using `TierAdvance`, your structs must implement the functions wrapped by t
 
 ### Authentication / Generate Token Endpoint
 
-You can call the e.g `jwtManager.GenerateToken(userID string, appID string) (string, error)` function when a user successfully logs into your system. This token can be returned to the client-side (mobile/web app) to be used for logging into the Revoluchat WebSocket server.
+You can call the e.g `jwtManager.GenerateToken(userID string, appID string, privKeyPath string) (string, error)` function when a user successfully logs into your system. This token can be returned to the client-side (mobile/web app) to be used for logging into the Revoluchat WebSocket server.
 
 ## 📄 License
 
