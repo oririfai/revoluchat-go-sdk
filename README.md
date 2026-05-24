@@ -1,6 +1,6 @@
 # Revoluchat Go SDK 🚀
 
-**Version**: `v1.2.3-alpha` (Group Support, Call, Attachment, & Advance Tier)
+**Version**: `v1.2.4-alpha` (Group Support, Call, Attachment, & Advance Tier)
 
 Official Go SDK for **Revoluchat**, an enterprise-grade, multi-tenant real-time chat platform. This SDK provides a seamless way to integrate your existing user database with Revoluchat using a highly secure "pointing" pattern and OpenID Connect (OIDC) compliant token generation.
 
@@ -135,7 +135,7 @@ Set the environment variables in your Revoluchat backend to point to your gRPC I
 # Set the tier type to be uniform with your application (normal/advance)
 TIER_TYPE=advance
 
-# Point to your Backend gRPC host
+# Point to your Backend gRPC host (only advanced tier)
 CHAT_SERVICE_GRPC_ENDPOINT=your-go-backend-host:50051
 USER_SERVICE_GRPC_ENDPOINT=your-go-backend-host:50051
 ```
