@@ -416,20 +416,16 @@ func Start(config Config) error {
 
 	// Security Interceptor
 	interceptor := func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
-		fmt.Printf("[gRPC SDK] Incoming Request: %s\n", info.FullMethod)
 		if config.ServerKey != "" {
 			md, ok := metadata.FromIncomingContext(ctx)
 			if !ok {
-				fmt.Printf("[gRPC SDK] Auth Failed: Metadata missing for %s\n", info.FullMethod)
 				return nil, status.Error(codes.Unauthenticated, "metadata missing")
 			}
 			keys := md.Get("x-server-key")
 			if len(keys) == 0 {
-				fmt.Printf("[gRPC SDK] Auth Failed: x-server-key missing for %s\n", info.FullMethod)
 				return nil, status.Error(codes.Unauthenticated, "invalid server key")
 			}
 			if keys[0] != config.ServerKey {
-				fmt.Printf("[gRPC SDK] Auth Failed: Invalid x-server-key for %s. Received: %s\n", info.FullMethod, keys[0])
 				return nil, status.Error(codes.Unauthenticated, "invalid server key")
 			}
 		}
