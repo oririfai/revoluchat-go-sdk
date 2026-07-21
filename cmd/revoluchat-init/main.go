@@ -451,6 +451,16 @@ func (h *AdminHandler) UnsuspendUser(ctx context.Context, req *pb_admin.Unsuspen
 	// 2. Return a successful *pb_admin.ActionResponse.
 	return nil, fmt.Errorf("unimplemented: UnsuspendUser is used by administrators to reactivate a suspended user account (User ID: %s)", req.UserId)
 }
+
+// GetGlobalChatStats fetches the global chat statistics for the admin dashboard.
+// This is triggered when an administrator views the summary dashboard in the admin panel.
+func (h *AdminHandler) GetGlobalChatStats(ctx context.Context, req *pb_admin.GetGlobalChatStatsRequest) (*pb_admin.GetGlobalChatStatsResponse, error) {
+	// TODO: Implement global chat stats logic.
+	// 1. Query the database to count total messages and total conversations.
+	// 2. Query the database to get the message volume stats for the last 7 days.
+	// 3. Return the stats in *pb_admin.GetGlobalChatStatsResponse.
+	return nil, fmt.Errorf("unimplemented: GetGlobalChatStats is used by administrators to view global chat statistics")
+}
 {{ end }}
 `
 

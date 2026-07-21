@@ -29,8 +29,10 @@ type User struct {
 	Name      string
 	Phone     string
 	Status    string
-	IsKYC     bool
-	AvatarURL string
+	IsKYC           bool
+	AvatarURL       string
+	PrivacySettings []byte
+	LastSeenAt      string
 }
 
 // UserProvider is a function that returns a User given a UUID.
@@ -82,6 +84,13 @@ type AttachmentProvider interface {
 	ListAttachmentsByIds(ctx context.Context, req *pb_chat.ListAttachmentsByIdsRequest) (*pb_chat.ListAttachmentsByIdsResponse, error)
 }
 
+type StatusProvider interface {
+	CreateStatus(ctx context.Context, req *pb_chat.CreateStatusRequest) (*pb_chat.CreateStatusResponse, error)
+	ListStatuses(ctx context.Context, req *pb_chat.ListStatusesRequest) (*pb_chat.ListStatusesResponse, error)
+	ViewStatus(ctx context.Context, req *pb_chat.ViewStatusRequest) (*pb_chat.ActionResponse, error)
+	DeleteStatus(ctx context.Context, req *pb_chat.DeleteStatusRequest) (*pb_chat.ActionResponse, error)
+}
+
 // Config holds the SDK configuration.
 type Config struct {
 	Tier         Tier
@@ -97,6 +106,7 @@ type Config struct {
 	AttachmentProvider   AttachmentProvider
 	ContactProvider      ContactProvider
 	AdminProvider        AdminProvider
+	StatusProvider       StatusProvider
 }
 
 type ContactProvider interface {
@@ -110,6 +120,7 @@ type AdminProvider interface {
 	ListUsers(ctx context.Context, req *pb_admin.ListUsersRequest) (*pb_admin.ListUsersResponse, error)
 	SuspendUser(ctx context.Context, req *pb_admin.SuspendUserRequest) (*pb_admin.ActionResponse, error)
 	UnsuspendUser(ctx context.Context, req *pb_admin.UnsuspendUserRequest) (*pb_admin.ActionResponse, error)
+	GetGlobalChatStats(ctx context.Context, req *pb_admin.GetGlobalChatStatsRequest) (*pb_admin.GetGlobalChatStatsResponse, error)
 }
 
 // --- ADMIN SERVICE ---
@@ -135,6 +146,13 @@ func (s *server) UnsuspendUser(ctx context.Context, req *pb_admin.UnsuspendUserR
 	return s.config.AdminProvider.UnsuspendUser(ctx, req)
 }
 
+func (s *server) GetGlobalChatStats(ctx context.Context, req *pb_admin.GetGlobalChatStatsRequest) (*pb_admin.GetGlobalChatStatsResponse, error) {
+	if s.config.AdminProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "admin provider not configured")
+	}
+	return s.config.AdminProvider.GetGlobalChatStats(ctx, req)
+}
+
 type server struct {
 	pb_user.UnimplementedUserServiceServer
 	pb_chat.UnimplementedMessageServiceServer
@@ -142,6 +160,7 @@ type server struct {
 	pb_chat.UnimplementedCallServiceServer
 	pb_chat.UnimplementedGroupServiceServer
 	pb_chat.UnimplementedAttachmentServiceServer
+	pb_chat.UnimplementedStatusServiceServer
 	pb_admin.UnimplementedAdminServiceServer
 	config Config
 }
@@ -155,13 +174,14 @@ func (s *server) GetUser(ctx context.Context, req *pb_user.GetUserRequest) (*pb_
 	}
 
 	return &pb_user.GetUserResponse{
-		Id:        user.ID,
-		Uuid:      user.UUID,
-		Name:      user.Name,
-		Phone:     user.Phone,
-		Status:    user.Status,
-		IsKyc:     user.IsKYC,
-		AvatarUrl: user.AvatarURL,
+		Id:              user.ID,
+		Uuid:            user.UUID,
+		Name:            user.Name,
+		Phone:           user.Phone,
+		Status:          user.Status,
+		IsKyc:           user.IsKYC,
+		AvatarUrl:       user.AvatarURL,
+		PrivacySettings: user.PrivacySettings,
 	}, nil
 }
 
@@ -406,6 +426,36 @@ func (s *server) ListAttachmentsByIds(ctx context.Context, req *pb_chat.ListAtta
 	return s.config.AttachmentProvider.ListAttachmentsByIds(ctx, req)
 }
 
+// --- STATUS SERVICE (ADVANCE TIER) ---
+
+func (s *server) CreateStatus(ctx context.Context, req *pb_chat.CreateStatusRequest) (*pb_chat.CreateStatusResponse, error) {
+	if s.config.StatusProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "status provider not configured")
+	}
+	return s.config.StatusProvider.CreateStatus(ctx, req)
+}
+
+func (s *server) ListStatuses(ctx context.Context, req *pb_chat.ListStatusesRequest) (*pb_chat.ListStatusesResponse, error) {
+	if s.config.StatusProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "status provider not configured")
+	}
+	return s.config.StatusProvider.ListStatuses(ctx, req)
+}
+
+func (s *server) ViewStatus(ctx context.Context, req *pb_chat.ViewStatusRequest) (*pb_chat.ActionResponse, error) {
+	if s.config.StatusProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "status provider not configured")
+	}
+	return s.config.StatusProvider.ViewStatus(ctx, req)
+}
+
+func (s *server) DeleteStatus(ctx context.Context, req *pb_chat.DeleteStatusRequest) (*pb_chat.ActionResponse, error) {
+	if s.config.StatusProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "status provider not configured")
+	}
+	return s.config.StatusProvider.DeleteStatus(ctx, req)
+}
+
 // Start starts the gRPC server for Revoluchat integration.
 func Start(config Config) error {
 	addr := fmt.Sprintf(":%d", config.GRPCPort)
@@ -446,6 +496,7 @@ func Start(config Config) error {
 		pb_chat.RegisterCallServiceServer(s, srv)
 		pb_chat.RegisterGroupServiceServer(s, srv)
 		pb_chat.RegisterAttachmentServiceServer(s, srv)
+		pb_chat.RegisterStatusServiceServer(s, srv)
 		pb_admin.RegisterAdminServiceServer(s, srv)
 	}
 

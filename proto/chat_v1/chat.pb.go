@@ -3681,6 +3681,550 @@ func (x *DeleteCallHistoryResponse) GetCount() uint32 {
 	return 0
 }
 
+type Status struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Id              string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	AppId           string                 `protobuf:"bytes,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	UserId          string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Type            string                 `protobuf:"bytes,4,opt,name=type,proto3" json:"type,omitempty"` // "text", "image", "video"
+	Content         string                 `protobuf:"bytes,5,opt,name=content,proto3" json:"content,omitempty"`
+	AttachmentId    string                 `protobuf:"bytes,6,opt,name=attachment_id,json=attachmentId,proto3" json:"attachment_id,omitempty"`
+	BackgroundColor string                 `protobuf:"bytes,7,opt,name=background_color,json=backgroundColor,proto3" json:"background_color,omitempty"`
+	FontStyle       string                 `protobuf:"bytes,8,opt,name=font_style,json=fontStyle,proto3" json:"font_style,omitempty"`
+	ExpiresAt       string                 `protobuf:"bytes,9,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	CreatedAt       string                 `protobuf:"bytes,10,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Views           []*StatusView          `protobuf:"bytes,11,rep,name=views,proto3" json:"views,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *Status) Reset() {
+	*x = Status{}
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[55]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Status) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Status) ProtoMessage() {}
+
+func (x *Status) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[55]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Status.ProtoReflect.Descriptor instead.
+func (*Status) Descriptor() ([]byte, []int) {
+	return file_proto_chat_v1_chat_proto_rawDescGZIP(), []int{55}
+}
+
+func (x *Status) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Status) GetAppId() string {
+	if x != nil {
+		return x.AppId
+	}
+	return ""
+}
+
+func (x *Status) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *Status) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *Status) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *Status) GetAttachmentId() string {
+	if x != nil {
+		return x.AttachmentId
+	}
+	return ""
+}
+
+func (x *Status) GetBackgroundColor() string {
+	if x != nil {
+		return x.BackgroundColor
+	}
+	return ""
+}
+
+func (x *Status) GetFontStyle() string {
+	if x != nil {
+		return x.FontStyle
+	}
+	return ""
+}
+
+func (x *Status) GetExpiresAt() string {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return ""
+}
+
+func (x *Status) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+func (x *Status) GetViews() []*StatusView {
+	if x != nil {
+		return x.Views
+	}
+	return nil
+}
+
+type StatusView struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ViewerId      string                 `protobuf:"bytes,1,opt,name=viewer_id,json=viewerId,proto3" json:"viewer_id,omitempty"`
+	ViewedAt      string                 `protobuf:"bytes,2,opt,name=viewed_at,json=viewedAt,proto3" json:"viewed_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StatusView) Reset() {
+	*x = StatusView{}
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[56]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StatusView) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StatusView) ProtoMessage() {}
+
+func (x *StatusView) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[56]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StatusView.ProtoReflect.Descriptor instead.
+func (*StatusView) Descriptor() ([]byte, []int) {
+	return file_proto_chat_v1_chat_proto_rawDescGZIP(), []int{56}
+}
+
+func (x *StatusView) GetViewerId() string {
+	if x != nil {
+		return x.ViewerId
+	}
+	return ""
+}
+
+func (x *StatusView) GetViewedAt() string {
+	if x != nil {
+		return x.ViewedAt
+	}
+	return ""
+}
+
+type CreateStatusRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	AppId           string                 `protobuf:"bytes,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	UserId          string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Type            string                 `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	Content         string                 `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
+	AttachmentId    string                 `protobuf:"bytes,5,opt,name=attachment_id,json=attachmentId,proto3" json:"attachment_id,omitempty"`
+	BackgroundColor string                 `protobuf:"bytes,6,opt,name=background_color,json=backgroundColor,proto3" json:"background_color,omitempty"`
+	FontStyle       string                 `protobuf:"bytes,7,opt,name=font_style,json=fontStyle,proto3" json:"font_style,omitempty"`
+	TtlSeconds      uint32                 `protobuf:"varint,8,opt,name=ttl_seconds,json=ttlSeconds,proto3" json:"ttl_seconds,omitempty"` // E.g., 86400 for 24h
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *CreateStatusRequest) Reset() {
+	*x = CreateStatusRequest{}
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[57]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateStatusRequest) ProtoMessage() {}
+
+func (x *CreateStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[57]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateStatusRequest.ProtoReflect.Descriptor instead.
+func (*CreateStatusRequest) Descriptor() ([]byte, []int) {
+	return file_proto_chat_v1_chat_proto_rawDescGZIP(), []int{57}
+}
+
+func (x *CreateStatusRequest) GetAppId() string {
+	if x != nil {
+		return x.AppId
+	}
+	return ""
+}
+
+func (x *CreateStatusRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *CreateStatusRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *CreateStatusRequest) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *CreateStatusRequest) GetAttachmentId() string {
+	if x != nil {
+		return x.AttachmentId
+	}
+	return ""
+}
+
+func (x *CreateStatusRequest) GetBackgroundColor() string {
+	if x != nil {
+		return x.BackgroundColor
+	}
+	return ""
+}
+
+func (x *CreateStatusRequest) GetFontStyle() string {
+	if x != nil {
+		return x.FontStyle
+	}
+	return ""
+}
+
+func (x *CreateStatusRequest) GetTtlSeconds() uint32 {
+	if x != nil {
+		return x.TtlSeconds
+	}
+	return 0
+}
+
+type CreateStatusResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        *Status                `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateStatusResponse) Reset() {
+	*x = CreateStatusResponse{}
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[58]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateStatusResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateStatusResponse) ProtoMessage() {}
+
+func (x *CreateStatusResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[58]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateStatusResponse.ProtoReflect.Descriptor instead.
+func (*CreateStatusResponse) Descriptor() ([]byte, []int) {
+	return file_proto_chat_v1_chat_proto_rawDescGZIP(), []int{58}
+}
+
+func (x *CreateStatusResponse) GetStatus() *Status {
+	if x != nil {
+		return x.Status
+	}
+	return nil
+}
+
+type ListStatusesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AppId         string                 `protobuf:"bytes,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	RequestorId   string                 `protobuf:"bytes,2,opt,name=requestor_id,json=requestorId,proto3" json:"requestor_id,omitempty"`
+	ContactIds    []string               `protobuf:"bytes,3,rep,name=contact_ids,json=contactIds,proto3" json:"contact_ids,omitempty"` // The IDs of users whose status we want to fetch
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListStatusesRequest) Reset() {
+	*x = ListStatusesRequest{}
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[59]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListStatusesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListStatusesRequest) ProtoMessage() {}
+
+func (x *ListStatusesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[59]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListStatusesRequest.ProtoReflect.Descriptor instead.
+func (*ListStatusesRequest) Descriptor() ([]byte, []int) {
+	return file_proto_chat_v1_chat_proto_rawDescGZIP(), []int{59}
+}
+
+func (x *ListStatusesRequest) GetAppId() string {
+	if x != nil {
+		return x.AppId
+	}
+	return ""
+}
+
+func (x *ListStatusesRequest) GetRequestorId() string {
+	if x != nil {
+		return x.RequestorId
+	}
+	return ""
+}
+
+func (x *ListStatusesRequest) GetContactIds() []string {
+	if x != nil {
+		return x.ContactIds
+	}
+	return nil
+}
+
+type ListStatusesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Statuses      []*Status              `protobuf:"bytes,1,rep,name=statuses,proto3" json:"statuses,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListStatusesResponse) Reset() {
+	*x = ListStatusesResponse{}
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[60]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListStatusesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListStatusesResponse) ProtoMessage() {}
+
+func (x *ListStatusesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[60]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListStatusesResponse.ProtoReflect.Descriptor instead.
+func (*ListStatusesResponse) Descriptor() ([]byte, []int) {
+	return file_proto_chat_v1_chat_proto_rawDescGZIP(), []int{60}
+}
+
+func (x *ListStatusesResponse) GetStatuses() []*Status {
+	if x != nil {
+		return x.Statuses
+	}
+	return nil
+}
+
+type ViewStatusRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AppId         string                 `protobuf:"bytes,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	StatusId      string                 `protobuf:"bytes,2,opt,name=status_id,json=statusId,proto3" json:"status_id,omitempty"`
+	ViewerId      string                 `protobuf:"bytes,3,opt,name=viewer_id,json=viewerId,proto3" json:"viewer_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ViewStatusRequest) Reset() {
+	*x = ViewStatusRequest{}
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[61]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ViewStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ViewStatusRequest) ProtoMessage() {}
+
+func (x *ViewStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[61]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ViewStatusRequest.ProtoReflect.Descriptor instead.
+func (*ViewStatusRequest) Descriptor() ([]byte, []int) {
+	return file_proto_chat_v1_chat_proto_rawDescGZIP(), []int{61}
+}
+
+func (x *ViewStatusRequest) GetAppId() string {
+	if x != nil {
+		return x.AppId
+	}
+	return ""
+}
+
+func (x *ViewStatusRequest) GetStatusId() string {
+	if x != nil {
+		return x.StatusId
+	}
+	return ""
+}
+
+func (x *ViewStatusRequest) GetViewerId() string {
+	if x != nil {
+		return x.ViewerId
+	}
+	return ""
+}
+
+type DeleteStatusRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AppId         string                 `protobuf:"bytes,1,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	StatusId      string                 `protobuf:"bytes,2,opt,name=status_id,json=statusId,proto3" json:"status_id,omitempty"`
+	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteStatusRequest) Reset() {
+	*x = DeleteStatusRequest{}
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[62]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteStatusRequest) ProtoMessage() {}
+
+func (x *DeleteStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_chat_v1_chat_proto_msgTypes[62]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteStatusRequest.ProtoReflect.Descriptor instead.
+func (*DeleteStatusRequest) Descriptor() ([]byte, []int) {
+	return file_proto_chat_v1_chat_proto_rawDescGZIP(), []int{62}
+}
+
+func (x *DeleteStatusRequest) GetAppId() string {
+	if x != nil {
+		return x.AppId
+	}
+	return ""
+}
+
+func (x *DeleteStatusRequest) GetStatusId() string {
+	if x != nil {
+		return x.StatusId
+	}
+	return ""
+}
+
+func (x *DeleteStatusRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
 var File_proto_chat_v1_chat_proto protoreflect.FileDescriptor
 
 const file_proto_chat_v1_chat_proto_rawDesc = "" +
@@ -3988,7 +4532,55 @@ const file_proto_chat_v1_chat_proto_rawDesc = "" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x10\n" +
 	"\x03ids\x18\x03 \x03(\tR\x03ids\"1\n" +
 	"\x19DeleteCallHistoryResponse\x12\x14\n" +
-	"\x05count\x18\x01 \x01(\rR\x05count2\xdf\x05\n" +
+	"\x05count\x18\x01 \x01(\rR\x05count\"\xd4\x02\n" +
+	"\x06Status\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x15\n" +
+	"\x06app_id\x18\x02 \x01(\tR\x05appId\x12\x17\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId\x12\x12\n" +
+	"\x04type\x18\x04 \x01(\tR\x04type\x12\x18\n" +
+	"\acontent\x18\x05 \x01(\tR\acontent\x12#\n" +
+	"\rattachment_id\x18\x06 \x01(\tR\fattachmentId\x12)\n" +
+	"\x10background_color\x18\a \x01(\tR\x0fbackgroundColor\x12\x1d\n" +
+	"\n" +
+	"font_style\x18\b \x01(\tR\tfontStyle\x12\x1d\n" +
+	"\n" +
+	"expires_at\x18\t \x01(\tR\texpiresAt\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\n" +
+	" \x01(\tR\tcreatedAt\x12/\n" +
+	"\x05views\x18\v \x03(\v2\x19.revoluchat.v1.StatusViewR\x05views\"F\n" +
+	"\n" +
+	"StatusView\x12\x1b\n" +
+	"\tviewer_id\x18\x01 \x01(\tR\bviewerId\x12\x1b\n" +
+	"\tviewed_at\x18\x02 \x01(\tR\bviewedAt\"\x83\x02\n" +
+	"\x13CreateStatusRequest\x12\x15\n" +
+	"\x06app_id\x18\x01 \x01(\tR\x05appId\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x12\n" +
+	"\x04type\x18\x03 \x01(\tR\x04type\x12\x18\n" +
+	"\acontent\x18\x04 \x01(\tR\acontent\x12#\n" +
+	"\rattachment_id\x18\x05 \x01(\tR\fattachmentId\x12)\n" +
+	"\x10background_color\x18\x06 \x01(\tR\x0fbackgroundColor\x12\x1d\n" +
+	"\n" +
+	"font_style\x18\a \x01(\tR\tfontStyle\x12\x1f\n" +
+	"\vttl_seconds\x18\b \x01(\rR\n" +
+	"ttlSeconds\"E\n" +
+	"\x14CreateStatusResponse\x12-\n" +
+	"\x06status\x18\x01 \x01(\v2\x15.revoluchat.v1.StatusR\x06status\"p\n" +
+	"\x13ListStatusesRequest\x12\x15\n" +
+	"\x06app_id\x18\x01 \x01(\tR\x05appId\x12!\n" +
+	"\frequestor_id\x18\x02 \x01(\tR\vrequestorId\x12\x1f\n" +
+	"\vcontact_ids\x18\x03 \x03(\tR\n" +
+	"contactIds\"I\n" +
+	"\x14ListStatusesResponse\x121\n" +
+	"\bstatuses\x18\x01 \x03(\v2\x15.revoluchat.v1.StatusR\bstatuses\"d\n" +
+	"\x11ViewStatusRequest\x12\x15\n" +
+	"\x06app_id\x18\x01 \x01(\tR\x05appId\x12\x1b\n" +
+	"\tstatus_id\x18\x02 \x01(\tR\bstatusId\x12\x1b\n" +
+	"\tviewer_id\x18\x03 \x01(\tR\bviewerId\"b\n" +
+	"\x13DeleteStatusRequest\x12\x15\n" +
+	"\x06app_id\x18\x01 \x01(\tR\x05appId\x12\x1b\n" +
+	"\tstatus_id\x18\x02 \x01(\tR\bstatusId\x12\x17\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId2\xdf\x05\n" +
 	"\x13ConversationService\x12i\n" +
 	"\x12CreateConversation\x12(.revoluchat.v1.CreateConversationRequest\x1a).revoluchat.v1.CreateConversationResponse\x12f\n" +
 	"\x11ListConversations\x12'.revoluchat.v1.ListConversationsRequest\x1a(.revoluchat.v1.ListConversationsResponse\x12`\n" +
@@ -4024,7 +4616,13 @@ const file_proto_chat_v1_chat_proto_rawDesc = "" +
 	"\x10UpdateCallStatus\x12&.revoluchat.v1.UpdateCallStatusRequest\x1a'.revoluchat.v1.UpdateCallStatusResponse\x12H\n" +
 	"\aGetCall\x12\x1d.revoluchat.v1.GetCallRequest\x1a\x1e.revoluchat.v1.GetCallResponse\x12`\n" +
 	"\x0fListCallHistory\x12%.revoluchat.v1.ListCallHistoryRequest\x1a&.revoluchat.v1.ListCallHistoryResponse\x12f\n" +
-	"\x11DeleteCallHistory\x12'.revoluchat.v1.DeleteCallHistoryRequest\x1a(.revoluchat.v1.DeleteCallHistoryResponseB5Z3github.com/oririfai/revoluchat-go-sdk/proto/chat_v1b\x06proto3"
+	"\x11DeleteCallHistory\x12'.revoluchat.v1.DeleteCallHistoryRequest\x1a(.revoluchat.v1.DeleteCallHistoryResponse2\xe3\x02\n" +
+	"\rStatusService\x12W\n" +
+	"\fCreateStatus\x12\".revoluchat.v1.CreateStatusRequest\x1a#.revoluchat.v1.CreateStatusResponse\x12W\n" +
+	"\fListStatuses\x12\".revoluchat.v1.ListStatusesRequest\x1a#.revoluchat.v1.ListStatusesResponse\x12M\n" +
+	"\n" +
+	"ViewStatus\x12 .revoluchat.v1.ViewStatusRequest\x1a\x1d.revoluchat.v1.ActionResponse\x12Q\n" +
+	"\fDeleteStatus\x12\".revoluchat.v1.DeleteStatusRequest\x1a\x1d.revoluchat.v1.ActionResponseB5Z3github.com/oririfai/revoluchat-go-sdk/proto/chat_v1b\x06proto3"
 
 var (
 	file_proto_chat_v1_chat_proto_rawDescOnce sync.Once
@@ -4038,7 +4636,7 @@ func file_proto_chat_v1_chat_proto_rawDescGZIP() []byte {
 	return file_proto_chat_v1_chat_proto_rawDescData
 }
 
-var file_proto_chat_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 55)
+var file_proto_chat_v1_chat_proto_msgTypes = make([]protoimpl.MessageInfo, 63)
 var file_proto_chat_v1_chat_proto_goTypes = []any{
 	(*DeleteConversationRequest)(nil),    // 0: revoluchat.v1.DeleteConversationRequest
 	(*ArchiveConversationRequest)(nil),   // 1: revoluchat.v1.ArchiveConversationRequest
@@ -4095,6 +4693,14 @@ var file_proto_chat_v1_chat_proto_goTypes = []any{
 	(*CallHistoryRecord)(nil),            // 52: revoluchat.v1.CallHistoryRecord
 	(*DeleteCallHistoryRequest)(nil),     // 53: revoluchat.v1.DeleteCallHistoryRequest
 	(*DeleteCallHistoryResponse)(nil),    // 54: revoluchat.v1.DeleteCallHistoryResponse
+	(*Status)(nil),                       // 55: revoluchat.v1.Status
+	(*StatusView)(nil),                   // 56: revoluchat.v1.StatusView
+	(*CreateStatusRequest)(nil),          // 57: revoluchat.v1.CreateStatusRequest
+	(*CreateStatusResponse)(nil),         // 58: revoluchat.v1.CreateStatusResponse
+	(*ListStatusesRequest)(nil),          // 59: revoluchat.v1.ListStatusesRequest
+	(*ListStatusesResponse)(nil),         // 60: revoluchat.v1.ListStatusesResponse
+	(*ViewStatusRequest)(nil),            // 61: revoluchat.v1.ViewStatusRequest
+	(*DeleteStatusRequest)(nil),          // 62: revoluchat.v1.DeleteStatusRequest
 }
 var file_proto_chat_v1_chat_proto_depIdxs = []int32{
 	9,  // 0: revoluchat.v1.CreateConversationResponse.conversation:type_name -> revoluchat.v1.Conversation
@@ -4119,69 +4725,80 @@ var file_proto_chat_v1_chat_proto_depIdxs = []int32{
 	45, // 19: revoluchat.v1.InitiateCallResponse.call:type_name -> revoluchat.v1.Call
 	45, // 20: revoluchat.v1.UpdateCallStatusResponse.call:type_name -> revoluchat.v1.Call
 	52, // 21: revoluchat.v1.ListCallHistoryResponse.records:type_name -> revoluchat.v1.CallHistoryRecord
-	3,  // 22: revoluchat.v1.ConversationService.CreateConversation:input_type -> revoluchat.v1.CreateConversationRequest
-	5,  // 23: revoluchat.v1.ConversationService.ListConversations:input_type -> revoluchat.v1.ListConversationsRequest
-	7,  // 24: revoluchat.v1.ConversationService.GetConversation:input_type -> revoluchat.v1.GetConversationRequest
-	0,  // 25: revoluchat.v1.ConversationService.DeleteConversation:input_type -> revoluchat.v1.DeleteConversationRequest
-	1,  // 26: revoluchat.v1.ConversationService.ArchiveConversation:input_type -> revoluchat.v1.ArchiveConversationRequest
-	2,  // 27: revoluchat.v1.ConversationService.UnarchiveConversation:input_type -> revoluchat.v1.UnarchiveConversationRequest
-	5,  // 28: revoluchat.v1.ConversationService.ListArchivedConversations:input_type -> revoluchat.v1.ListConversationsRequest
-	12, // 29: revoluchat.v1.GroupService.CreateGroup:input_type -> revoluchat.v1.CreateGroupRequest
-	14, // 30: revoluchat.v1.GroupService.GetGroup:input_type -> revoluchat.v1.GetGroupRequest
-	16, // 31: revoluchat.v1.GroupService.AddMembers:input_type -> revoluchat.v1.AddMembersRequest
-	17, // 32: revoluchat.v1.GroupService.RemoveMember:input_type -> revoluchat.v1.RemoveMemberRequest
-	18, // 33: revoluchat.v1.GroupService.UpdateGroup:input_type -> revoluchat.v1.UpdateGroupRequest
-	20, // 34: revoluchat.v1.GroupService.LeaveGroup:input_type -> revoluchat.v1.LeaveGroupRequest
-	22, // 35: revoluchat.v1.GroupService.DeleteGroup:input_type -> revoluchat.v1.DeleteGroupRequest
-	23, // 36: revoluchat.v1.GroupService.MuteGroup:input_type -> revoluchat.v1.MuteGroupRequest
-	21, // 37: revoluchat.v1.GroupService.AcceptGroupInvitation:input_type -> revoluchat.v1.AcceptGroupInvitationRequest
-	26, // 38: revoluchat.v1.AttachmentService.RegisterAttachment:input_type -> revoluchat.v1.RegisterAttachmentRequest
-	28, // 39: revoluchat.v1.AttachmentService.ListAttachmentsByIds:input_type -> revoluchat.v1.ListAttachmentsByIdsRequest
-	31, // 40: revoluchat.v1.MessageService.InsertMessage:input_type -> revoluchat.v1.InsertMessageRequest
-	33, // 41: revoluchat.v1.MessageService.ListMessages:input_type -> revoluchat.v1.ListMessagesRequest
-	35, // 42: revoluchat.v1.MessageService.MarkRead:input_type -> revoluchat.v1.MarkReadRequest
-	37, // 43: revoluchat.v1.MessageService.MarkDelivered:input_type -> revoluchat.v1.MarkDeliveredRequest
-	39, // 44: revoluchat.v1.MessageService.DeleteMessage:input_type -> revoluchat.v1.DeleteMessageRequest
-	41, // 45: revoluchat.v1.MessageService.BulkDeleteMessages:input_type -> revoluchat.v1.BulkDeleteMessagesRequest
-	46, // 46: revoluchat.v1.CallService.InitiateCall:input_type -> revoluchat.v1.InitiateCallRequest
-	48, // 47: revoluchat.v1.CallService.UpdateCallStatus:input_type -> revoluchat.v1.UpdateCallStatusRequest
-	43, // 48: revoluchat.v1.CallService.GetCall:input_type -> revoluchat.v1.GetCallRequest
-	50, // 49: revoluchat.v1.CallService.ListCallHistory:input_type -> revoluchat.v1.ListCallHistoryRequest
-	53, // 50: revoluchat.v1.CallService.DeleteCallHistory:input_type -> revoluchat.v1.DeleteCallHistoryRequest
-	4,  // 51: revoluchat.v1.ConversationService.CreateConversation:output_type -> revoluchat.v1.CreateConversationResponse
-	6,  // 52: revoluchat.v1.ConversationService.ListConversations:output_type -> revoluchat.v1.ListConversationsResponse
-	8,  // 53: revoluchat.v1.ConversationService.GetConversation:output_type -> revoluchat.v1.GetConversationResponse
-	24, // 54: revoluchat.v1.ConversationService.DeleteConversation:output_type -> revoluchat.v1.ActionResponse
-	24, // 55: revoluchat.v1.ConversationService.ArchiveConversation:output_type -> revoluchat.v1.ActionResponse
-	24, // 56: revoluchat.v1.ConversationService.UnarchiveConversation:output_type -> revoluchat.v1.ActionResponse
-	6,  // 57: revoluchat.v1.ConversationService.ListArchivedConversations:output_type -> revoluchat.v1.ListConversationsResponse
-	13, // 58: revoluchat.v1.GroupService.CreateGroup:output_type -> revoluchat.v1.CreateGroupResponse
-	15, // 59: revoluchat.v1.GroupService.GetGroup:output_type -> revoluchat.v1.GetGroupResponse
-	24, // 60: revoluchat.v1.GroupService.AddMembers:output_type -> revoluchat.v1.ActionResponse
-	24, // 61: revoluchat.v1.GroupService.RemoveMember:output_type -> revoluchat.v1.ActionResponse
-	19, // 62: revoluchat.v1.GroupService.UpdateGroup:output_type -> revoluchat.v1.UpdateGroupResponse
-	24, // 63: revoluchat.v1.GroupService.LeaveGroup:output_type -> revoluchat.v1.ActionResponse
-	24, // 64: revoluchat.v1.GroupService.DeleteGroup:output_type -> revoluchat.v1.ActionResponse
-	24, // 65: revoluchat.v1.GroupService.MuteGroup:output_type -> revoluchat.v1.ActionResponse
-	24, // 66: revoluchat.v1.GroupService.AcceptGroupInvitation:output_type -> revoluchat.v1.ActionResponse
-	27, // 67: revoluchat.v1.AttachmentService.RegisterAttachment:output_type -> revoluchat.v1.RegisterAttachmentResponse
-	29, // 68: revoluchat.v1.AttachmentService.ListAttachmentsByIds:output_type -> revoluchat.v1.ListAttachmentsByIdsResponse
-	32, // 69: revoluchat.v1.MessageService.InsertMessage:output_type -> revoluchat.v1.InsertMessageResponse
-	34, // 70: revoluchat.v1.MessageService.ListMessages:output_type -> revoluchat.v1.ListMessagesResponse
-	36, // 71: revoluchat.v1.MessageService.MarkRead:output_type -> revoluchat.v1.MarkReadResponse
-	38, // 72: revoluchat.v1.MessageService.MarkDelivered:output_type -> revoluchat.v1.MarkDeliveredResponse
-	40, // 73: revoluchat.v1.MessageService.DeleteMessage:output_type -> revoluchat.v1.DeleteMessageResponse
-	42, // 74: revoluchat.v1.MessageService.BulkDeleteMessages:output_type -> revoluchat.v1.BulkDeleteMessagesResponse
-	47, // 75: revoluchat.v1.CallService.InitiateCall:output_type -> revoluchat.v1.InitiateCallResponse
-	49, // 76: revoluchat.v1.CallService.UpdateCallStatus:output_type -> revoluchat.v1.UpdateCallStatusResponse
-	44, // 77: revoluchat.v1.CallService.GetCall:output_type -> revoluchat.v1.GetCallResponse
-	51, // 78: revoluchat.v1.CallService.ListCallHistory:output_type -> revoluchat.v1.ListCallHistoryResponse
-	54, // 79: revoluchat.v1.CallService.DeleteCallHistory:output_type -> revoluchat.v1.DeleteCallHistoryResponse
-	51, // [51:80] is the sub-list for method output_type
-	22, // [22:51] is the sub-list for method input_type
-	22, // [22:22] is the sub-list for extension type_name
-	22, // [22:22] is the sub-list for extension extendee
-	0,  // [0:22] is the sub-list for field type_name
+	56, // 22: revoluchat.v1.Status.views:type_name -> revoluchat.v1.StatusView
+	55, // 23: revoluchat.v1.CreateStatusResponse.status:type_name -> revoluchat.v1.Status
+	55, // 24: revoluchat.v1.ListStatusesResponse.statuses:type_name -> revoluchat.v1.Status
+	3,  // 25: revoluchat.v1.ConversationService.CreateConversation:input_type -> revoluchat.v1.CreateConversationRequest
+	5,  // 26: revoluchat.v1.ConversationService.ListConversations:input_type -> revoluchat.v1.ListConversationsRequest
+	7,  // 27: revoluchat.v1.ConversationService.GetConversation:input_type -> revoluchat.v1.GetConversationRequest
+	0,  // 28: revoluchat.v1.ConversationService.DeleteConversation:input_type -> revoluchat.v1.DeleteConversationRequest
+	1,  // 29: revoluchat.v1.ConversationService.ArchiveConversation:input_type -> revoluchat.v1.ArchiveConversationRequest
+	2,  // 30: revoluchat.v1.ConversationService.UnarchiveConversation:input_type -> revoluchat.v1.UnarchiveConversationRequest
+	5,  // 31: revoluchat.v1.ConversationService.ListArchivedConversations:input_type -> revoluchat.v1.ListConversationsRequest
+	12, // 32: revoluchat.v1.GroupService.CreateGroup:input_type -> revoluchat.v1.CreateGroupRequest
+	14, // 33: revoluchat.v1.GroupService.GetGroup:input_type -> revoluchat.v1.GetGroupRequest
+	16, // 34: revoluchat.v1.GroupService.AddMembers:input_type -> revoluchat.v1.AddMembersRequest
+	17, // 35: revoluchat.v1.GroupService.RemoveMember:input_type -> revoluchat.v1.RemoveMemberRequest
+	18, // 36: revoluchat.v1.GroupService.UpdateGroup:input_type -> revoluchat.v1.UpdateGroupRequest
+	20, // 37: revoluchat.v1.GroupService.LeaveGroup:input_type -> revoluchat.v1.LeaveGroupRequest
+	22, // 38: revoluchat.v1.GroupService.DeleteGroup:input_type -> revoluchat.v1.DeleteGroupRequest
+	23, // 39: revoluchat.v1.GroupService.MuteGroup:input_type -> revoluchat.v1.MuteGroupRequest
+	21, // 40: revoluchat.v1.GroupService.AcceptGroupInvitation:input_type -> revoluchat.v1.AcceptGroupInvitationRequest
+	26, // 41: revoluchat.v1.AttachmentService.RegisterAttachment:input_type -> revoluchat.v1.RegisterAttachmentRequest
+	28, // 42: revoluchat.v1.AttachmentService.ListAttachmentsByIds:input_type -> revoluchat.v1.ListAttachmentsByIdsRequest
+	31, // 43: revoluchat.v1.MessageService.InsertMessage:input_type -> revoluchat.v1.InsertMessageRequest
+	33, // 44: revoluchat.v1.MessageService.ListMessages:input_type -> revoluchat.v1.ListMessagesRequest
+	35, // 45: revoluchat.v1.MessageService.MarkRead:input_type -> revoluchat.v1.MarkReadRequest
+	37, // 46: revoluchat.v1.MessageService.MarkDelivered:input_type -> revoluchat.v1.MarkDeliveredRequest
+	39, // 47: revoluchat.v1.MessageService.DeleteMessage:input_type -> revoluchat.v1.DeleteMessageRequest
+	41, // 48: revoluchat.v1.MessageService.BulkDeleteMessages:input_type -> revoluchat.v1.BulkDeleteMessagesRequest
+	46, // 49: revoluchat.v1.CallService.InitiateCall:input_type -> revoluchat.v1.InitiateCallRequest
+	48, // 50: revoluchat.v1.CallService.UpdateCallStatus:input_type -> revoluchat.v1.UpdateCallStatusRequest
+	43, // 51: revoluchat.v1.CallService.GetCall:input_type -> revoluchat.v1.GetCallRequest
+	50, // 52: revoluchat.v1.CallService.ListCallHistory:input_type -> revoluchat.v1.ListCallHistoryRequest
+	53, // 53: revoluchat.v1.CallService.DeleteCallHistory:input_type -> revoluchat.v1.DeleteCallHistoryRequest
+	57, // 54: revoluchat.v1.StatusService.CreateStatus:input_type -> revoluchat.v1.CreateStatusRequest
+	59, // 55: revoluchat.v1.StatusService.ListStatuses:input_type -> revoluchat.v1.ListStatusesRequest
+	61, // 56: revoluchat.v1.StatusService.ViewStatus:input_type -> revoluchat.v1.ViewStatusRequest
+	62, // 57: revoluchat.v1.StatusService.DeleteStatus:input_type -> revoluchat.v1.DeleteStatusRequest
+	4,  // 58: revoluchat.v1.ConversationService.CreateConversation:output_type -> revoluchat.v1.CreateConversationResponse
+	6,  // 59: revoluchat.v1.ConversationService.ListConversations:output_type -> revoluchat.v1.ListConversationsResponse
+	8,  // 60: revoluchat.v1.ConversationService.GetConversation:output_type -> revoluchat.v1.GetConversationResponse
+	24, // 61: revoluchat.v1.ConversationService.DeleteConversation:output_type -> revoluchat.v1.ActionResponse
+	24, // 62: revoluchat.v1.ConversationService.ArchiveConversation:output_type -> revoluchat.v1.ActionResponse
+	24, // 63: revoluchat.v1.ConversationService.UnarchiveConversation:output_type -> revoluchat.v1.ActionResponse
+	6,  // 64: revoluchat.v1.ConversationService.ListArchivedConversations:output_type -> revoluchat.v1.ListConversationsResponse
+	13, // 65: revoluchat.v1.GroupService.CreateGroup:output_type -> revoluchat.v1.CreateGroupResponse
+	15, // 66: revoluchat.v1.GroupService.GetGroup:output_type -> revoluchat.v1.GetGroupResponse
+	24, // 67: revoluchat.v1.GroupService.AddMembers:output_type -> revoluchat.v1.ActionResponse
+	24, // 68: revoluchat.v1.GroupService.RemoveMember:output_type -> revoluchat.v1.ActionResponse
+	19, // 69: revoluchat.v1.GroupService.UpdateGroup:output_type -> revoluchat.v1.UpdateGroupResponse
+	24, // 70: revoluchat.v1.GroupService.LeaveGroup:output_type -> revoluchat.v1.ActionResponse
+	24, // 71: revoluchat.v1.GroupService.DeleteGroup:output_type -> revoluchat.v1.ActionResponse
+	24, // 72: revoluchat.v1.GroupService.MuteGroup:output_type -> revoluchat.v1.ActionResponse
+	24, // 73: revoluchat.v1.GroupService.AcceptGroupInvitation:output_type -> revoluchat.v1.ActionResponse
+	27, // 74: revoluchat.v1.AttachmentService.RegisterAttachment:output_type -> revoluchat.v1.RegisterAttachmentResponse
+	29, // 75: revoluchat.v1.AttachmentService.ListAttachmentsByIds:output_type -> revoluchat.v1.ListAttachmentsByIdsResponse
+	32, // 76: revoluchat.v1.MessageService.InsertMessage:output_type -> revoluchat.v1.InsertMessageResponse
+	34, // 77: revoluchat.v1.MessageService.ListMessages:output_type -> revoluchat.v1.ListMessagesResponse
+	36, // 78: revoluchat.v1.MessageService.MarkRead:output_type -> revoluchat.v1.MarkReadResponse
+	38, // 79: revoluchat.v1.MessageService.MarkDelivered:output_type -> revoluchat.v1.MarkDeliveredResponse
+	40, // 80: revoluchat.v1.MessageService.DeleteMessage:output_type -> revoluchat.v1.DeleteMessageResponse
+	42, // 81: revoluchat.v1.MessageService.BulkDeleteMessages:output_type -> revoluchat.v1.BulkDeleteMessagesResponse
+	47, // 82: revoluchat.v1.CallService.InitiateCall:output_type -> revoluchat.v1.InitiateCallResponse
+	49, // 83: revoluchat.v1.CallService.UpdateCallStatus:output_type -> revoluchat.v1.UpdateCallStatusResponse
+	44, // 84: revoluchat.v1.CallService.GetCall:output_type -> revoluchat.v1.GetCallResponse
+	51, // 85: revoluchat.v1.CallService.ListCallHistory:output_type -> revoluchat.v1.ListCallHistoryResponse
+	54, // 86: revoluchat.v1.CallService.DeleteCallHistory:output_type -> revoluchat.v1.DeleteCallHistoryResponse
+	58, // 87: revoluchat.v1.StatusService.CreateStatus:output_type -> revoluchat.v1.CreateStatusResponse
+	60, // 88: revoluchat.v1.StatusService.ListStatuses:output_type -> revoluchat.v1.ListStatusesResponse
+	24, // 89: revoluchat.v1.StatusService.ViewStatus:output_type -> revoluchat.v1.ActionResponse
+	24, // 90: revoluchat.v1.StatusService.DeleteStatus:output_type -> revoluchat.v1.ActionResponse
+	58, // [58:91] is the sub-list for method output_type
+	25, // [25:58] is the sub-list for method input_type
+	25, // [25:25] is the sub-list for extension type_name
+	25, // [25:25] is the sub-list for extension extendee
+	0,  // [0:25] is the sub-list for field type_name
 }
 
 func init() { file_proto_chat_v1_chat_proto_init() }
@@ -4195,9 +4812,9 @@ func file_proto_chat_v1_chat_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_chat_v1_chat_proto_rawDesc), len(file_proto_chat_v1_chat_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   55,
+			NumMessages:   63,
 			NumExtensions: 0,
-			NumServices:   5,
+			NumServices:   6,
 		},
 		GoTypes:           file_proto_chat_v1_chat_proto_goTypes,
 		DependencyIndexes: file_proto_chat_v1_chat_proto_depIdxs,

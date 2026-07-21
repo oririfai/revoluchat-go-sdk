@@ -397,6 +397,162 @@ func (x *ActionResponse) GetMessage() string {
 	return ""
 }
 
+type GetGlobalChatStatsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetGlobalChatStatsRequest) Reset() {
+	*x = GetGlobalChatStatsRequest{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetGlobalChatStatsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGlobalChatStatsRequest) ProtoMessage() {}
+
+func (x *GetGlobalChatStatsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGlobalChatStatsRequest.ProtoReflect.Descriptor instead.
+func (*GetGlobalChatStatsRequest) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{6}
+}
+
+type MessageVolumeStat struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Date          string                 `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
+	Count         int64                  `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MessageVolumeStat) Reset() {
+	*x = MessageVolumeStat{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MessageVolumeStat) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MessageVolumeStat) ProtoMessage() {}
+
+func (x *MessageVolumeStat) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MessageVolumeStat.ProtoReflect.Descriptor instead.
+func (*MessageVolumeStat) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *MessageVolumeStat) GetDate() string {
+	if x != nil {
+		return x.Date
+	}
+	return ""
+}
+
+func (x *MessageVolumeStat) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+type GetGlobalChatStatsResponse struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	TotalMessages       int64                  `protobuf:"varint,1,opt,name=total_messages,json=totalMessages,proto3" json:"total_messages,omitempty"`
+	TotalConversations  int64                  `protobuf:"varint,2,opt,name=total_conversations,json=totalConversations,proto3" json:"total_conversations,omitempty"`
+	MessageVolumeStats  []*MessageVolumeStat   `protobuf:"bytes,3,rep,name=message_volume_stats,json=messageVolumeStats,proto3" json:"message_volume_stats,omitempty"`
+	TotalConnectedUsers int64                  `protobuf:"varint,4,opt,name=total_connected_users,json=totalConnectedUsers,proto3" json:"total_connected_users,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *GetGlobalChatStatsResponse) Reset() {
+	*x = GetGlobalChatStatsResponse{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetGlobalChatStatsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetGlobalChatStatsResponse) ProtoMessage() {}
+
+func (x *GetGlobalChatStatsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetGlobalChatStatsResponse.ProtoReflect.Descriptor instead.
+func (*GetGlobalChatStatsResponse) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *GetGlobalChatStatsResponse) GetTotalMessages() int64 {
+	if x != nil {
+		return x.TotalMessages
+	}
+	return 0
+}
+
+func (x *GetGlobalChatStatsResponse) GetTotalConversations() int64 {
+	if x != nil {
+		return x.TotalConversations
+	}
+	return 0
+}
+
+func (x *GetGlobalChatStatsResponse) GetMessageVolumeStats() []*MessageVolumeStat {
+	if x != nil {
+		return x.MessageVolumeStats
+	}
+	return nil
+}
+
+func (x *GetGlobalChatStatsResponse) GetTotalConnectedUsers() int64 {
+	if x != nil {
+		return x.TotalConnectedUsers
+	}
+	return 0
+}
+
 var File_proto_admin_v1_admin_proto protoreflect.FileDescriptor
 
 const file_proto_admin_v1_admin_proto_rawDesc = "" +
@@ -430,11 +586,21 @@ const file_proto_admin_v1_admin_proto_rawDesc = "" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\"D\n" +
 	"\x0eActionResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage2\xe6\x01\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"\x1b\n" +
+	"\x19GetGlobalChatStatsRequest\"=\n" +
+	"\x11MessageVolumeStat\x12\x12\n" +
+	"\x04date\x18\x01 \x01(\tR\x04date\x12\x14\n" +
+	"\x05count\x18\x02 \x01(\x03R\x05count\"\xf7\x01\n" +
+	"\x1aGetGlobalChatStatsResponse\x12%\n" +
+	"\x0etotal_messages\x18\x01 \x01(\x03R\rtotalMessages\x12/\n" +
+	"\x13total_conversations\x18\x02 \x01(\x03R\x12totalConversations\x12M\n" +
+	"\x14message_volume_stats\x18\x03 \x03(\v2\x1b.admin.v1.MessageVolumeStatR\x12messageVolumeStats\x122\n" +
+	"\x15total_connected_users\x18\x04 \x01(\x03R\x13totalConnectedUsers2\xc7\x02\n" +
 	"\fAdminService\x12D\n" +
 	"\tListUsers\x12\x1a.admin.v1.ListUsersRequest\x1a\x1b.admin.v1.ListUsersResponse\x12E\n" +
 	"\vSuspendUser\x12\x1c.admin.v1.SuspendUserRequest\x1a\x18.admin.v1.ActionResponse\x12I\n" +
-	"\rUnsuspendUser\x12\x1e.admin.v1.UnsuspendUserRequest\x1a\x18.admin.v1.ActionResponseB6Z4github.com/oririfai/revoluchat-go-sdk/proto/admin_v1b\x06proto3"
+	"\rUnsuspendUser\x12\x1e.admin.v1.UnsuspendUserRequest\x1a\x18.admin.v1.ActionResponse\x12_\n" +
+	"\x12GetGlobalChatStats\x12#.admin.v1.GetGlobalChatStatsRequest\x1a$.admin.v1.GetGlobalChatStatsResponseB6Z4github.com/oririfai/revoluchat-go-sdk/proto/admin_v1b\x06proto3"
 
 var (
 	file_proto_admin_v1_admin_proto_rawDescOnce sync.Once
@@ -448,28 +614,34 @@ func file_proto_admin_v1_admin_proto_rawDescGZIP() []byte {
 	return file_proto_admin_v1_admin_proto_rawDescData
 }
 
-var file_proto_admin_v1_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_proto_admin_v1_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_proto_admin_v1_admin_proto_goTypes = []any{
-	(*ListUsersRequest)(nil),     // 0: admin.v1.ListUsersRequest
-	(*ListUsersResponse)(nil),    // 1: admin.v1.ListUsersResponse
-	(*AdminUser)(nil),            // 2: admin.v1.AdminUser
-	(*SuspendUserRequest)(nil),   // 3: admin.v1.SuspendUserRequest
-	(*UnsuspendUserRequest)(nil), // 4: admin.v1.UnsuspendUserRequest
-	(*ActionResponse)(nil),       // 5: admin.v1.ActionResponse
+	(*ListUsersRequest)(nil),           // 0: admin.v1.ListUsersRequest
+	(*ListUsersResponse)(nil),          // 1: admin.v1.ListUsersResponse
+	(*AdminUser)(nil),                  // 2: admin.v1.AdminUser
+	(*SuspendUserRequest)(nil),         // 3: admin.v1.SuspendUserRequest
+	(*UnsuspendUserRequest)(nil),       // 4: admin.v1.UnsuspendUserRequest
+	(*ActionResponse)(nil),             // 5: admin.v1.ActionResponse
+	(*GetGlobalChatStatsRequest)(nil),  // 6: admin.v1.GetGlobalChatStatsRequest
+	(*MessageVolumeStat)(nil),          // 7: admin.v1.MessageVolumeStat
+	(*GetGlobalChatStatsResponse)(nil), // 8: admin.v1.GetGlobalChatStatsResponse
 }
 var file_proto_admin_v1_admin_proto_depIdxs = []int32{
 	2, // 0: admin.v1.ListUsersResponse.users:type_name -> admin.v1.AdminUser
-	0, // 1: admin.v1.AdminService.ListUsers:input_type -> admin.v1.ListUsersRequest
-	3, // 2: admin.v1.AdminService.SuspendUser:input_type -> admin.v1.SuspendUserRequest
-	4, // 3: admin.v1.AdminService.UnsuspendUser:input_type -> admin.v1.UnsuspendUserRequest
-	1, // 4: admin.v1.AdminService.ListUsers:output_type -> admin.v1.ListUsersResponse
-	5, // 5: admin.v1.AdminService.SuspendUser:output_type -> admin.v1.ActionResponse
-	5, // 6: admin.v1.AdminService.UnsuspendUser:output_type -> admin.v1.ActionResponse
-	4, // [4:7] is the sub-list for method output_type
-	1, // [1:4] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	7, // 1: admin.v1.GetGlobalChatStatsResponse.message_volume_stats:type_name -> admin.v1.MessageVolumeStat
+	0, // 2: admin.v1.AdminService.ListUsers:input_type -> admin.v1.ListUsersRequest
+	3, // 3: admin.v1.AdminService.SuspendUser:input_type -> admin.v1.SuspendUserRequest
+	4, // 4: admin.v1.AdminService.UnsuspendUser:input_type -> admin.v1.UnsuspendUserRequest
+	6, // 5: admin.v1.AdminService.GetGlobalChatStats:input_type -> admin.v1.GetGlobalChatStatsRequest
+	1, // 6: admin.v1.AdminService.ListUsers:output_type -> admin.v1.ListUsersResponse
+	5, // 7: admin.v1.AdminService.SuspendUser:output_type -> admin.v1.ActionResponse
+	5, // 8: admin.v1.AdminService.UnsuspendUser:output_type -> admin.v1.ActionResponse
+	8, // 9: admin.v1.AdminService.GetGlobalChatStats:output_type -> admin.v1.GetGlobalChatStatsResponse
+	6, // [6:10] is the sub-list for method output_type
+	2, // [2:6] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_proto_admin_v1_admin_proto_init() }
@@ -483,7 +655,7 @@ func file_proto_admin_v1_admin_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_admin_v1_admin_proto_rawDesc), len(file_proto_admin_v1_admin_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
