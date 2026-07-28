@@ -553,6 +553,390 @@ func (x *GetGlobalChatStatsResponse) GetTotalConnectedUsers() int64 {
 	return 0
 }
 
+type Wallpaper struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` // numeric ID
+	Url           string                 `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
+	IsActive      bool                   `protobuf:"varint,3,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
+	CreatedAt     string                 `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Wallpaper) Reset() {
+	*x = Wallpaper{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Wallpaper) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Wallpaper) ProtoMessage() {}
+
+func (x *Wallpaper) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Wallpaper.ProtoReflect.Descriptor instead.
+func (*Wallpaper) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *Wallpaper) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Wallpaper) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+func (x *Wallpaper) GetIsActive() bool {
+	if x != nil {
+		return x.IsActive
+	}
+	return false
+}
+
+func (x *Wallpaper) GetCreatedAt() string {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return ""
+}
+
+type SetAppPreferenceRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         string                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetAppPreferenceRequest) Reset() {
+	*x = SetAppPreferenceRequest{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetAppPreferenceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetAppPreferenceRequest) ProtoMessage() {}
+
+func (x *SetAppPreferenceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetAppPreferenceRequest.ProtoReflect.Descriptor instead.
+func (*SetAppPreferenceRequest) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *SetAppPreferenceRequest) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *SetAppPreferenceRequest) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+type GetAppPreferencesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Keys          []string               `protobuf:"bytes,1,rep,name=keys,proto3" json:"keys,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAppPreferencesRequest) Reset() {
+	*x = GetAppPreferencesRequest{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAppPreferencesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAppPreferencesRequest) ProtoMessage() {}
+
+func (x *GetAppPreferencesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAppPreferencesRequest.ProtoReflect.Descriptor instead.
+func (*GetAppPreferencesRequest) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetAppPreferencesRequest) GetKeys() []string {
+	if x != nil {
+		return x.Keys
+	}
+	return nil
+}
+
+type GetAppPreferencesResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Preferences   map[string]string      `protobuf:"bytes,1,rep,name=preferences,proto3" json:"preferences,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAppPreferencesResponse) Reset() {
+	*x = GetAppPreferencesResponse{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAppPreferencesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAppPreferencesResponse) ProtoMessage() {}
+
+func (x *GetAppPreferencesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAppPreferencesResponse.ProtoReflect.Descriptor instead.
+func (*GetAppPreferencesResponse) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetAppPreferencesResponse) GetPreferences() map[string]string {
+	if x != nil {
+		return x.Preferences
+	}
+	return nil
+}
+
+type AddWallpaperRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddWallpaperRequest) Reset() {
+	*x = AddWallpaperRequest{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddWallpaperRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddWallpaperRequest) ProtoMessage() {}
+
+func (x *AddWallpaperRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddWallpaperRequest.ProtoReflect.Descriptor instead.
+func (*AddWallpaperRequest) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *AddWallpaperRequest) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+type DeleteWallpaperRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` // numeric ID
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteWallpaperRequest) Reset() {
+	*x = DeleteWallpaperRequest{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteWallpaperRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteWallpaperRequest) ProtoMessage() {}
+
+func (x *DeleteWallpaperRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteWallpaperRequest.ProtoReflect.Descriptor instead.
+func (*DeleteWallpaperRequest) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *DeleteWallpaperRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type GetWallpapersRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ActiveOnly    bool                   `protobuf:"varint,1,opt,name=active_only,json=activeOnly,proto3" json:"active_only,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWallpapersRequest) Reset() {
+	*x = GetWallpapersRequest{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWallpapersRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWallpapersRequest) ProtoMessage() {}
+
+func (x *GetWallpapersRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWallpapersRequest.ProtoReflect.Descriptor instead.
+func (*GetWallpapersRequest) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GetWallpapersRequest) GetActiveOnly() bool {
+	if x != nil {
+		return x.ActiveOnly
+	}
+	return false
+}
+
+type GetWallpapersResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Wallpapers    []*Wallpaper           `protobuf:"bytes,1,rep,name=wallpapers,proto3" json:"wallpapers,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWallpapersResponse) Reset() {
+	*x = GetWallpapersResponse{}
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWallpapersResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWallpapersResponse) ProtoMessage() {}
+
+func (x *GetWallpapersResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_admin_v1_admin_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWallpapersResponse.ProtoReflect.Descriptor instead.
+func (*GetWallpapersResponse) Descriptor() ([]byte, []int) {
+	return file_proto_admin_v1_admin_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GetWallpapersResponse) GetWallpapers() []*Wallpaper {
+	if x != nil {
+		return x.Wallpapers
+	}
+	return nil
+}
+
 var File_proto_admin_v1_admin_proto protoreflect.FileDescriptor
 
 const file_proto_admin_v1_admin_proto_rawDesc = "" +
@@ -595,12 +979,44 @@ const file_proto_admin_v1_admin_proto_rawDesc = "" +
 	"\x0etotal_messages\x18\x01 \x01(\x03R\rtotalMessages\x12/\n" +
 	"\x13total_conversations\x18\x02 \x01(\x03R\x12totalConversations\x12M\n" +
 	"\x14message_volume_stats\x18\x03 \x03(\v2\x1b.admin.v1.MessageVolumeStatR\x12messageVolumeStats\x122\n" +
-	"\x15total_connected_users\x18\x04 \x01(\x03R\x13totalConnectedUsers2\xc7\x02\n" +
+	"\x15total_connected_users\x18\x04 \x01(\x03R\x13totalConnectedUsers\"i\n" +
+	"\tWallpaper\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x10\n" +
+	"\x03url\x18\x02 \x01(\tR\x03url\x12\x1b\n" +
+	"\tis_active\x18\x03 \x01(\bR\bisActive\x12\x1d\n" +
+	"\n" +
+	"created_at\x18\x04 \x01(\tR\tcreatedAt\"A\n" +
+	"\x17SetAppPreferenceRequest\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\".\n" +
+	"\x18GetAppPreferencesRequest\x12\x12\n" +
+	"\x04keys\x18\x01 \x03(\tR\x04keys\"\xb3\x01\n" +
+	"\x19GetAppPreferencesResponse\x12V\n" +
+	"\vpreferences\x18\x01 \x03(\v24.admin.v1.GetAppPreferencesResponse.PreferencesEntryR\vpreferences\x1a>\n" +
+	"\x10PreferencesEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"'\n" +
+	"\x13AddWallpaperRequest\x12\x10\n" +
+	"\x03url\x18\x01 \x01(\tR\x03url\"(\n" +
+	"\x16DeleteWallpaperRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"7\n" +
+	"\x14GetWallpapersRequest\x12\x1f\n" +
+	"\vactive_only\x18\x01 \x01(\bR\n" +
+	"activeOnly\"L\n" +
+	"\x15GetWallpapersResponse\x123\n" +
+	"\n" +
+	"wallpapers\x18\x01 \x03(\v2\x13.admin.v1.WallpaperR\n" +
+	"wallpapers2\xdb\x05\n" +
 	"\fAdminService\x12D\n" +
 	"\tListUsers\x12\x1a.admin.v1.ListUsersRequest\x1a\x1b.admin.v1.ListUsersResponse\x12E\n" +
 	"\vSuspendUser\x12\x1c.admin.v1.SuspendUserRequest\x1a\x18.admin.v1.ActionResponse\x12I\n" +
 	"\rUnsuspendUser\x12\x1e.admin.v1.UnsuspendUserRequest\x1a\x18.admin.v1.ActionResponse\x12_\n" +
-	"\x12GetGlobalChatStats\x12#.admin.v1.GetGlobalChatStatsRequest\x1a$.admin.v1.GetGlobalChatStatsResponseB6Z4github.com/oririfai/revoluchat-go-sdk/proto/admin_v1b\x06proto3"
+	"\x12GetGlobalChatStats\x12#.admin.v1.GetGlobalChatStatsRequest\x1a$.admin.v1.GetGlobalChatStatsResponse\x12B\n" +
+	"\fAddWallpaper\x12\x1d.admin.v1.AddWallpaperRequest\x1a\x13.admin.v1.Wallpaper\x12M\n" +
+	"\x0fDeleteWallpaper\x12 .admin.v1.DeleteWallpaperRequest\x1a\x18.admin.v1.ActionResponse\x12P\n" +
+	"\rGetWallpapers\x12\x1e.admin.v1.GetWallpapersRequest\x1a\x1f.admin.v1.GetWallpapersResponse\x12O\n" +
+	"\x10SetAppPreference\x12!.admin.v1.SetAppPreferenceRequest\x1a\x18.admin.v1.ActionResponse\x12\\\n" +
+	"\x11GetAppPreferences\x12\".admin.v1.GetAppPreferencesRequest\x1a#.admin.v1.GetAppPreferencesResponseB6Z4github.com/oririfai/revoluchat-go-sdk/proto/admin_v1b\x06proto3"
 
 var (
 	file_proto_admin_v1_admin_proto_rawDescOnce sync.Once
@@ -614,7 +1030,7 @@ func file_proto_admin_v1_admin_proto_rawDescGZIP() []byte {
 	return file_proto_admin_v1_admin_proto_rawDescData
 }
 
-var file_proto_admin_v1_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_proto_admin_v1_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_proto_admin_v1_admin_proto_goTypes = []any{
 	(*ListUsersRequest)(nil),           // 0: admin.v1.ListUsersRequest
 	(*ListUsersResponse)(nil),          // 1: admin.v1.ListUsersResponse
@@ -625,23 +1041,44 @@ var file_proto_admin_v1_admin_proto_goTypes = []any{
 	(*GetGlobalChatStatsRequest)(nil),  // 6: admin.v1.GetGlobalChatStatsRequest
 	(*MessageVolumeStat)(nil),          // 7: admin.v1.MessageVolumeStat
 	(*GetGlobalChatStatsResponse)(nil), // 8: admin.v1.GetGlobalChatStatsResponse
+	(*Wallpaper)(nil),                  // 9: admin.v1.Wallpaper
+	(*SetAppPreferenceRequest)(nil),    // 10: admin.v1.SetAppPreferenceRequest
+	(*GetAppPreferencesRequest)(nil),   // 11: admin.v1.GetAppPreferencesRequest
+	(*GetAppPreferencesResponse)(nil),  // 12: admin.v1.GetAppPreferencesResponse
+	(*AddWallpaperRequest)(nil),        // 13: admin.v1.AddWallpaperRequest
+	(*DeleteWallpaperRequest)(nil),     // 14: admin.v1.DeleteWallpaperRequest
+	(*GetWallpapersRequest)(nil),       // 15: admin.v1.GetWallpapersRequest
+	(*GetWallpapersResponse)(nil),      // 16: admin.v1.GetWallpapersResponse
+	nil,                                // 17: admin.v1.GetAppPreferencesResponse.PreferencesEntry
 }
 var file_proto_admin_v1_admin_proto_depIdxs = []int32{
-	2, // 0: admin.v1.ListUsersResponse.users:type_name -> admin.v1.AdminUser
-	7, // 1: admin.v1.GetGlobalChatStatsResponse.message_volume_stats:type_name -> admin.v1.MessageVolumeStat
-	0, // 2: admin.v1.AdminService.ListUsers:input_type -> admin.v1.ListUsersRequest
-	3, // 3: admin.v1.AdminService.SuspendUser:input_type -> admin.v1.SuspendUserRequest
-	4, // 4: admin.v1.AdminService.UnsuspendUser:input_type -> admin.v1.UnsuspendUserRequest
-	6, // 5: admin.v1.AdminService.GetGlobalChatStats:input_type -> admin.v1.GetGlobalChatStatsRequest
-	1, // 6: admin.v1.AdminService.ListUsers:output_type -> admin.v1.ListUsersResponse
-	5, // 7: admin.v1.AdminService.SuspendUser:output_type -> admin.v1.ActionResponse
-	5, // 8: admin.v1.AdminService.UnsuspendUser:output_type -> admin.v1.ActionResponse
-	8, // 9: admin.v1.AdminService.GetGlobalChatStats:output_type -> admin.v1.GetGlobalChatStatsResponse
-	6, // [6:10] is the sub-list for method output_type
-	2, // [2:6] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2,  // 0: admin.v1.ListUsersResponse.users:type_name -> admin.v1.AdminUser
+	7,  // 1: admin.v1.GetGlobalChatStatsResponse.message_volume_stats:type_name -> admin.v1.MessageVolumeStat
+	17, // 2: admin.v1.GetAppPreferencesResponse.preferences:type_name -> admin.v1.GetAppPreferencesResponse.PreferencesEntry
+	9,  // 3: admin.v1.GetWallpapersResponse.wallpapers:type_name -> admin.v1.Wallpaper
+	0,  // 4: admin.v1.AdminService.ListUsers:input_type -> admin.v1.ListUsersRequest
+	3,  // 5: admin.v1.AdminService.SuspendUser:input_type -> admin.v1.SuspendUserRequest
+	4,  // 6: admin.v1.AdminService.UnsuspendUser:input_type -> admin.v1.UnsuspendUserRequest
+	6,  // 7: admin.v1.AdminService.GetGlobalChatStats:input_type -> admin.v1.GetGlobalChatStatsRequest
+	13, // 8: admin.v1.AdminService.AddWallpaper:input_type -> admin.v1.AddWallpaperRequest
+	14, // 9: admin.v1.AdminService.DeleteWallpaper:input_type -> admin.v1.DeleteWallpaperRequest
+	15, // 10: admin.v1.AdminService.GetWallpapers:input_type -> admin.v1.GetWallpapersRequest
+	10, // 11: admin.v1.AdminService.SetAppPreference:input_type -> admin.v1.SetAppPreferenceRequest
+	11, // 12: admin.v1.AdminService.GetAppPreferences:input_type -> admin.v1.GetAppPreferencesRequest
+	1,  // 13: admin.v1.AdminService.ListUsers:output_type -> admin.v1.ListUsersResponse
+	5,  // 14: admin.v1.AdminService.SuspendUser:output_type -> admin.v1.ActionResponse
+	5,  // 15: admin.v1.AdminService.UnsuspendUser:output_type -> admin.v1.ActionResponse
+	8,  // 16: admin.v1.AdminService.GetGlobalChatStats:output_type -> admin.v1.GetGlobalChatStatsResponse
+	9,  // 17: admin.v1.AdminService.AddWallpaper:output_type -> admin.v1.Wallpaper
+	5,  // 18: admin.v1.AdminService.DeleteWallpaper:output_type -> admin.v1.ActionResponse
+	16, // 19: admin.v1.AdminService.GetWallpapers:output_type -> admin.v1.GetWallpapersResponse
+	5,  // 20: admin.v1.AdminService.SetAppPreference:output_type -> admin.v1.ActionResponse
+	12, // 21: admin.v1.AdminService.GetAppPreferences:output_type -> admin.v1.GetAppPreferencesResponse
+	13, // [13:22] is the sub-list for method output_type
+	4,  // [4:13] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_proto_admin_v1_admin_proto_init() }
@@ -655,7 +1092,7 @@ func file_proto_admin_v1_admin_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_admin_v1_admin_proto_rawDesc), len(file_proto_admin_v1_admin_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

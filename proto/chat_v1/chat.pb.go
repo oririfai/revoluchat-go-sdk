@@ -652,6 +652,8 @@ type Group struct {
 	UnreadCount   uint32                 `protobuf:"varint,11,opt,name=unread_count,json=unreadCount,proto3" json:"unread_count,omitempty"`
 	MyStatus      string                 `protobuf:"bytes,12,opt,name=my_status,json=myStatus,proto3" json:"my_status,omitempty"`
 	LastMessage   *Message               `protobuf:"bytes,13,opt,name=last_message,json=lastMessage,proto3" json:"last_message,omitempty"`
+	MessageTtl    int32                  `protobuf:"varint,14,opt,name=message_ttl,json=messageTtl,proto3" json:"message_ttl,omitempty"`
+	Permissions   string                 `protobuf:"bytes,15,opt,name=permissions,proto3" json:"permissions,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -775,6 +777,20 @@ func (x *Group) GetLastMessage() *Message {
 		return x.LastMessage
 	}
 	return nil
+}
+
+func (x *Group) GetMessageTtl() int32 {
+	if x != nil {
+		return x.MessageTtl
+	}
+	return 0
+}
+
+func (x *Group) GetPermissions() string {
+	if x != nil {
+		return x.Permissions
+	}
+	return ""
 }
 
 type GroupMember struct {
@@ -1221,6 +1237,8 @@ type UpdateGroupRequest struct {
 	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
 	AvatarUrl     string                 `protobuf:"bytes,5,opt,name=avatar_url,json=avatarUrl,proto3" json:"avatar_url,omitempty"`
 	IsLocked      bool                   `protobuf:"varint,6,opt,name=is_locked,json=isLocked,proto3" json:"is_locked,omitempty"`
+	MessageTtl    *int32                 `protobuf:"varint,7,opt,name=message_ttl,json=messageTtl,proto3,oneof" json:"message_ttl,omitempty"`
+	Permissions   *string                `protobuf:"bytes,8,opt,name=permissions,proto3,oneof" json:"permissions,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1295,6 +1313,20 @@ func (x *UpdateGroupRequest) GetIsLocked() bool {
 		return x.IsLocked
 	}
 	return false
+}
+
+func (x *UpdateGroupRequest) GetMessageTtl() int32 {
+	if x != nil && x.MessageTtl != nil {
+		return *x.MessageTtl
+	}
+	return 0
+}
+
+func (x *UpdateGroupRequest) GetPermissions() string {
+	if x != nil && x.Permissions != nil {
+		return *x.Permissions
+	}
+	return ""
 }
 
 type UpdateGroupResponse struct {
@@ -4273,7 +4305,7 @@ const file_proto_chat_v1_chat_proto_rawDesc = "" +
 	"\x05group\x18\t \x01(\v2\x14.revoluchat.v1.GroupR\x05group\x12\x1f\n" +
 	"\varchived_at\x18\n" +
 	" \x01(\tR\n" +
-	"archivedAt\"\xb0\x03\n" +
+	"archivedAt\"\xf3\x03\n" +
 	"\x05Group\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x15\n" +
 	"\x06app_id\x18\x02 \x01(\tR\x05appId\x12\x12\n" +
@@ -4292,7 +4324,10 @@ const file_proto_chat_v1_chat_proto_rawDesc = "" +
 	" \x03(\v2\x1a.revoluchat.v1.GroupMemberR\amembers\x12!\n" +
 	"\funread_count\x18\v \x01(\rR\vunreadCount\x12\x1b\n" +
 	"\tmy_status\x18\f \x01(\tR\bmyStatus\x129\n" +
-	"\flast_message\x18\r \x01(\v2\x16.revoluchat.v1.MessageR\vlastMessage\"\xab\x01\n" +
+	"\flast_message\x18\r \x01(\v2\x16.revoluchat.v1.MessageR\vlastMessage\x12\x1f\n" +
+	"\vmessage_ttl\x18\x0e \x01(\x05R\n" +
+	"messageTtl\x12 \n" +
+	"\vpermissions\x18\x0f \x01(\tR\vpermissions\"\xab\x01\n" +
 	"\vGroupMember\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x12\n" +
 	"\x04role\x18\x02 \x01(\tR\x04role\x12\x19\n" +
@@ -4325,7 +4360,7 @@ const file_proto_chat_v1_chat_proto_rawDesc = "" +
 	"\x13RemoveMemberRequest\x12\x15\n" +
 	"\x06app_id\x18\x01 \x01(\tR\x05appId\x12\x19\n" +
 	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12\x17\n" +
-	"\auser_id\x18\x03 \x01(\tR\x06userId\"\xb8\x01\n" +
+	"\auser_id\x18\x03 \x01(\tR\x06userId\"\xa5\x02\n" +
 	"\x12UpdateGroupRequest\x12\x15\n" +
 	"\x06app_id\x18\x01 \x01(\tR\x05appId\x12\x19\n" +
 	"\bgroup_id\x18\x02 \x01(\tR\agroupId\x12\x12\n" +
@@ -4333,7 +4368,12 @@ const file_proto_chat_v1_chat_proto_rawDesc = "" +
 	"\vdescription\x18\x04 \x01(\tR\vdescription\x12\x1d\n" +
 	"\n" +
 	"avatar_url\x18\x05 \x01(\tR\tavatarUrl\x12\x1b\n" +
-	"\tis_locked\x18\x06 \x01(\bR\bisLocked\"A\n" +
+	"\tis_locked\x18\x06 \x01(\bR\bisLocked\x12$\n" +
+	"\vmessage_ttl\x18\a \x01(\x05H\x00R\n" +
+	"messageTtl\x88\x01\x01\x12%\n" +
+	"\vpermissions\x18\b \x01(\tH\x01R\vpermissions\x88\x01\x01B\x0e\n" +
+	"\f_message_ttlB\x0e\n" +
+	"\f_permissions\"A\n" +
 	"\x13UpdateGroupResponse\x12*\n" +
 	"\x05group\x18\x01 \x01(\v2\x14.revoluchat.v1.GroupR\x05group\"E\n" +
 	"\x11LeaveGroupRequest\x12\x15\n" +
@@ -4806,6 +4846,7 @@ func file_proto_chat_v1_chat_proto_init() {
 	if File_proto_chat_v1_chat_proto != nil {
 		return
 	}
+	file_proto_chat_v1_chat_proto_msgTypes[18].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

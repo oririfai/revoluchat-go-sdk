@@ -23,6 +23,11 @@ const (
 	AdminService_SuspendUser_FullMethodName        = "/admin.v1.AdminService/SuspendUser"
 	AdminService_UnsuspendUser_FullMethodName      = "/admin.v1.AdminService/UnsuspendUser"
 	AdminService_GetGlobalChatStats_FullMethodName = "/admin.v1.AdminService/GetGlobalChatStats"
+	AdminService_AddWallpaper_FullMethodName       = "/admin.v1.AdminService/AddWallpaper"
+	AdminService_DeleteWallpaper_FullMethodName    = "/admin.v1.AdminService/DeleteWallpaper"
+	AdminService_GetWallpapers_FullMethodName      = "/admin.v1.AdminService/GetWallpapers"
+	AdminService_SetAppPreference_FullMethodName   = "/admin.v1.AdminService/SetAppPreference"
+	AdminService_GetAppPreferences_FullMethodName  = "/admin.v1.AdminService/GetAppPreferences"
 )
 
 // AdminServiceClient is the client API for AdminService service.
@@ -35,6 +40,13 @@ type AdminServiceClient interface {
 	UnsuspendUser(ctx context.Context, in *UnsuspendUserRequest, opts ...grpc.CallOption) (*ActionResponse, error)
 	// Stats
 	GetGlobalChatStats(ctx context.Context, in *GetGlobalChatStatsRequest, opts ...grpc.CallOption) (*GetGlobalChatStatsResponse, error)
+	// Wallpapers
+	AddWallpaper(ctx context.Context, in *AddWallpaperRequest, opts ...grpc.CallOption) (*Wallpaper, error)
+	DeleteWallpaper(ctx context.Context, in *DeleteWallpaperRequest, opts ...grpc.CallOption) (*ActionResponse, error)
+	GetWallpapers(ctx context.Context, in *GetWallpapersRequest, opts ...grpc.CallOption) (*GetWallpapersResponse, error)
+	// App Preferences
+	SetAppPreference(ctx context.Context, in *SetAppPreferenceRequest, opts ...grpc.CallOption) (*ActionResponse, error)
+	GetAppPreferences(ctx context.Context, in *GetAppPreferencesRequest, opts ...grpc.CallOption) (*GetAppPreferencesResponse, error)
 }
 
 type adminServiceClient struct {
@@ -85,6 +97,56 @@ func (c *adminServiceClient) GetGlobalChatStats(ctx context.Context, in *GetGlob
 	return out, nil
 }
 
+func (c *adminServiceClient) AddWallpaper(ctx context.Context, in *AddWallpaperRequest, opts ...grpc.CallOption) (*Wallpaper, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Wallpaper)
+	err := c.cc.Invoke(ctx, AdminService_AddWallpaper_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminServiceClient) DeleteWallpaper(ctx context.Context, in *DeleteWallpaperRequest, opts ...grpc.CallOption) (*ActionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionResponse)
+	err := c.cc.Invoke(ctx, AdminService_DeleteWallpaper_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminServiceClient) GetWallpapers(ctx context.Context, in *GetWallpapersRequest, opts ...grpc.CallOption) (*GetWallpapersResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetWallpapersResponse)
+	err := c.cc.Invoke(ctx, AdminService_GetWallpapers_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminServiceClient) SetAppPreference(ctx context.Context, in *SetAppPreferenceRequest, opts ...grpc.CallOption) (*ActionResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ActionResponse)
+	err := c.cc.Invoke(ctx, AdminService_SetAppPreference_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminServiceClient) GetAppPreferences(ctx context.Context, in *GetAppPreferencesRequest, opts ...grpc.CallOption) (*GetAppPreferencesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAppPreferencesResponse)
+	err := c.cc.Invoke(ctx, AdminService_GetAppPreferences_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AdminServiceServer is the server API for AdminService service.
 // All implementations must embed UnimplementedAdminServiceServer
 // for forward compatibility.
@@ -95,6 +157,13 @@ type AdminServiceServer interface {
 	UnsuspendUser(context.Context, *UnsuspendUserRequest) (*ActionResponse, error)
 	// Stats
 	GetGlobalChatStats(context.Context, *GetGlobalChatStatsRequest) (*GetGlobalChatStatsResponse, error)
+	// Wallpapers
+	AddWallpaper(context.Context, *AddWallpaperRequest) (*Wallpaper, error)
+	DeleteWallpaper(context.Context, *DeleteWallpaperRequest) (*ActionResponse, error)
+	GetWallpapers(context.Context, *GetWallpapersRequest) (*GetWallpapersResponse, error)
+	// App Preferences
+	SetAppPreference(context.Context, *SetAppPreferenceRequest) (*ActionResponse, error)
+	GetAppPreferences(context.Context, *GetAppPreferencesRequest) (*GetAppPreferencesResponse, error)
 	mustEmbedUnimplementedAdminServiceServer()
 }
 
@@ -116,6 +185,21 @@ func (UnimplementedAdminServiceServer) UnsuspendUser(context.Context, *Unsuspend
 }
 func (UnimplementedAdminServiceServer) GetGlobalChatStats(context.Context, *GetGlobalChatStatsRequest) (*GetGlobalChatStatsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetGlobalChatStats not implemented")
+}
+func (UnimplementedAdminServiceServer) AddWallpaper(context.Context, *AddWallpaperRequest) (*Wallpaper, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddWallpaper not implemented")
+}
+func (UnimplementedAdminServiceServer) DeleteWallpaper(context.Context, *DeleteWallpaperRequest) (*ActionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteWallpaper not implemented")
+}
+func (UnimplementedAdminServiceServer) GetWallpapers(context.Context, *GetWallpapersRequest) (*GetWallpapersResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetWallpapers not implemented")
+}
+func (UnimplementedAdminServiceServer) SetAppPreference(context.Context, *SetAppPreferenceRequest) (*ActionResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method SetAppPreference not implemented")
+}
+func (UnimplementedAdminServiceServer) GetAppPreferences(context.Context, *GetAppPreferencesRequest) (*GetAppPreferencesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAppPreferences not implemented")
 }
 func (UnimplementedAdminServiceServer) mustEmbedUnimplementedAdminServiceServer() {}
 func (UnimplementedAdminServiceServer) testEmbeddedByValue()                      {}
@@ -210,6 +294,96 @@ func _AdminService_GetGlobalChatStats_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AdminService_AddWallpaper_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddWallpaperRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).AddWallpaper(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AdminService_AddWallpaper_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).AddWallpaper(ctx, req.(*AddWallpaperRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminService_DeleteWallpaper_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteWallpaperRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).DeleteWallpaper(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AdminService_DeleteWallpaper_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).DeleteWallpaper(ctx, req.(*DeleteWallpaperRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminService_GetWallpapers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWallpapersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).GetWallpapers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AdminService_GetWallpapers_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).GetWallpapers(ctx, req.(*GetWallpapersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminService_SetAppPreference_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetAppPreferenceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).SetAppPreference(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AdminService_SetAppPreference_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).SetAppPreference(ctx, req.(*SetAppPreferenceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminService_GetAppPreferences_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAppPreferencesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).GetAppPreferences(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AdminService_GetAppPreferences_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).GetAppPreferences(ctx, req.(*GetAppPreferencesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AdminService_ServiceDesc is the grpc.ServiceDesc for AdminService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -232,6 +406,26 @@ var AdminService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetGlobalChatStats",
 			Handler:    _AdminService_GetGlobalChatStats_Handler,
+		},
+		{
+			MethodName: "AddWallpaper",
+			Handler:    _AdminService_AddWallpaper_Handler,
+		},
+		{
+			MethodName: "DeleteWallpaper",
+			Handler:    _AdminService_DeleteWallpaper_Handler,
+		},
+		{
+			MethodName: "GetWallpapers",
+			Handler:    _AdminService_GetWallpapers_Handler,
+		},
+		{
+			MethodName: "SetAppPreference",
+			Handler:    _AdminService_SetAppPreference_Handler,
+		},
+		{
+			MethodName: "GetAppPreferences",
+			Handler:    _AdminService_GetAppPreferences_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

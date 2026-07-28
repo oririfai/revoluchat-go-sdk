@@ -121,6 +121,11 @@ type AdminProvider interface {
 	SuspendUser(ctx context.Context, req *pb_admin.SuspendUserRequest) (*pb_admin.ActionResponse, error)
 	UnsuspendUser(ctx context.Context, req *pb_admin.UnsuspendUserRequest) (*pb_admin.ActionResponse, error)
 	GetGlobalChatStats(ctx context.Context, req *pb_admin.GetGlobalChatStatsRequest) (*pb_admin.GetGlobalChatStatsResponse, error)
+	AddWallpaper(ctx context.Context, req *pb_admin.AddWallpaperRequest) (*pb_admin.Wallpaper, error)
+	DeleteWallpaper(ctx context.Context, req *pb_admin.DeleteWallpaperRequest) (*pb_admin.ActionResponse, error)
+	GetWallpapers(ctx context.Context, req *pb_admin.GetWallpapersRequest) (*pb_admin.GetWallpapersResponse, error)
+	SetAppPreference(ctx context.Context, req *pb_admin.SetAppPreferenceRequest) (*pb_admin.ActionResponse, error)
+	GetAppPreferences(ctx context.Context, req *pb_admin.GetAppPreferencesRequest) (*pb_admin.GetAppPreferencesResponse, error)
 }
 
 // --- ADMIN SERVICE ---
@@ -151,6 +156,41 @@ func (s *server) GetGlobalChatStats(ctx context.Context, req *pb_admin.GetGlobal
 		return nil, status.Error(codes.Unimplemented, "admin provider not configured")
 	}
 	return s.config.AdminProvider.GetGlobalChatStats(ctx, req)
+}
+
+func (s *server) AddWallpaper(ctx context.Context, req *pb_admin.AddWallpaperRequest) (*pb_admin.Wallpaper, error) {
+	if s.config.AdminProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "admin provider not configured")
+	}
+	return s.config.AdminProvider.AddWallpaper(ctx, req)
+}
+
+func (s *server) DeleteWallpaper(ctx context.Context, req *pb_admin.DeleteWallpaperRequest) (*pb_admin.ActionResponse, error) {
+	if s.config.AdminProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "admin provider not configured")
+	}
+	return s.config.AdminProvider.DeleteWallpaper(ctx, req)
+}
+
+func (s *server) GetWallpapers(ctx context.Context, req *pb_admin.GetWallpapersRequest) (*pb_admin.GetWallpapersResponse, error) {
+	if s.config.AdminProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "admin provider not configured")
+	}
+	return s.config.AdminProvider.GetWallpapers(ctx, req)
+}
+
+func (s *server) SetAppPreference(ctx context.Context, req *pb_admin.SetAppPreferenceRequest) (*pb_admin.ActionResponse, error) {
+	if s.config.AdminProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "admin provider not configured")
+	}
+	return s.config.AdminProvider.SetAppPreference(ctx, req)
+}
+
+func (s *server) GetAppPreferences(ctx context.Context, req *pb_admin.GetAppPreferencesRequest) (*pb_admin.GetAppPreferencesResponse, error) {
+	if s.config.AdminProvider == nil {
+		return nil, status.Error(codes.Unimplemented, "admin provider not configured")
+	}
+	return s.config.AdminProvider.GetAppPreferences(ctx, req)
 }
 
 type server struct {
